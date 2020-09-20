@@ -5,6 +5,7 @@
  */
 package sistema_tienda;
 
+import Vistas.V_login;
 import modelos.conexion;
 
 /**
@@ -17,11 +18,8 @@ public class Sistema_Tienda {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Hola xdxd");
-        System.out.println("Hola Mundo");
-        
-        conexion con = new conexion();         //Creamos un objeto de tipo conexion
-        con.conectado();                    //Mandamos a llamar el metodo conectado
+        V_login v_login = new V_login();
+        v_login.setVisible(true);
         
     }
     

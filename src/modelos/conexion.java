@@ -23,7 +23,7 @@ public class conexion {
          conn = DriverManager.getConnection(url, "admin123@tienda","Tango2000.");    //Apuntamos nuestro objeto con a el intento de conectarse con los parametros o las credenciales que tenemos en MYSQL
         //Aqui mandamos la url donde viene la direccion de la BD, nuestro nombre de usuario y la contraseña, que por defecto al instalar viene vacia
         if (conn!=null){                         //Si logramos conectarnos, con deja de apuntar a null y obtenemos conexion
-            System.out.println("Conexión a base de datos funcionando");                //Sin funciona imprimimos en consola un mensaje
+                          //Sin funciona imprimimos en consola un mensaje
          }
       }//cerramos el try
          catch(SQLException | ClassNotFoundException e)        //Agarramos excepciones de tipo SQL
