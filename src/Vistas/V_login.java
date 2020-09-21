@@ -48,6 +48,11 @@ public class V_login extends javax.swing.JFrame {
 
         cboxRol.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         cboxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----", "Empleado", "Administrador" }));
+        cboxRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxRolActionPerformed(evt);
+            }
+        });
 
         jLabel3.setBackground(new java.awt.Color(102, 102, 102));
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
@@ -177,6 +182,10 @@ public class V_login extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void cboxRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxRolActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxRolActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

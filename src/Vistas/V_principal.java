@@ -123,6 +123,11 @@ public class V_principal extends javax.swing.JFrame {
         jMenu8.setText("Usuarios");
 
         jMenuItem3.setText("Nuevo");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu8.add(jMenuItem3);
 
         jMenuItem4.setText("Gestionar");
@@ -148,9 +153,19 @@ public class V_principal extends javax.swing.JFrame {
         jMenu10.setText("Proveedores");
 
         jMenuItem6.setText("Nuevo");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu10.add(jMenuItem6);
 
         jMenuItem7.setText("Gestionar");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu10.add(jMenuItem7);
 
         jMenuBar1.add(jMenu10);
@@ -191,7 +206,13 @@ public class V_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+  V_gestionar_vendedor gest_vendedor = new V_gestionar_vendedor();
+        PanelEscritorio.add(gest_vendedor);
+        Dimension FrameSize = gest_vendedor.getSize();
+        Dimension desktopSize = PanelEscritorio.getSize();
+        gest_vendedor.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        gest_vendedor.setVisible(true);
+
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -206,6 +227,34 @@ public class V_principal extends javax.swing.JFrame {
         pro_nuevo.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         pro_nuevo.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+  V_nuevo_vendedor nuevo_vendedor = new V_nuevo_vendedor();
+        PanelEscritorio.add(nuevo_vendedor);
+        Dimension FrameSize = nuevo_vendedor.getSize();
+        Dimension desktopSize = PanelEscritorio.getSize();
+        nuevo_vendedor.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        nuevo_vendedor.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+      V_nuevo_proveedor nuv_proveedor = new V_nuevo_proveedor();
+        PanelEscritorio.add(nuv_proveedor);
+        Dimension FrameSize = nuv_proveedor.getSize();
+        Dimension desktopSize = PanelEscritorio.getSize();
+        nuv_proveedor.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        nuv_proveedor.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+      V_gestionar_proveedor gest_proveedor = new V_gestionar_proveedor();
+        PanelEscritorio.add(gest_proveedor);
+        Dimension FrameSize = gest_proveedor.getSize();
+        Dimension desktopSize = PanelEscritorio.getSize();
+        gest_proveedor.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        gest_proveedor.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
