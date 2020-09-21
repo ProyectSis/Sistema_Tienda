@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +15,7 @@ public class producto_crud {
     conexion conexion = new conexion();
     Connection cc = conexion.conectado();
     PreparedStatement preparedStatement = null;
+    Statement st = null;
     DefaultTableModel tabla = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int Fila, int Colum) {
@@ -61,6 +63,42 @@ public class producto_crud {
         try {
             preparedStatement = cc.prepareStatement(sql);
             ResultSet resultado = preparedStatement.executeQuery();  //Linea que ejecuta la consulta sql y almacena los datos en resultado
+
+            while (resultado.next()) {                                    //Bucle que recorre la consulta obtenida
+                datos[0] = resultado.getInt("ID_PRODUCTO")+"";
+                datos[1] = resultado.getString("PRO_DESCRIPCION");
+                datos[2] = resultado.getFloat("PRO_COSTO")+"";
+                datos[3] = resultado.getFloat("PRO_PRECIO")+"";
+                datos[4] = resultado.getInt("PRO_STOCK")+"";
+                datos[5] = resultado.getInt("ID_CATEGORIA")+"";
+                datos[6] = resultado.getInt("ID_MARCA")+"";
+                datos[7] = resultado.getString("PRO_ESTADO");
+                tabla.addRow(datos);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los Datos\n" + ex);
+        }
+    }
+    
+    public void buscarProducto(JTable tbl_producto, String keyword){
+        
+        tabla.setColumnCount(0);
+        tabla.setRowCount(0);
+        tabla.addColumn("ID");
+        tabla.addColumn("Descripcion");
+        
+        tabla.addColumn("Costo");
+        tabla.addColumn("Precio");
+        tabla.addColumn("Stck");
+        tabla.addColumn("Categoria");
+        tabla.addColumn("Marca");
+        tabla.addColumn("Estado");
+        tbl_producto.setModel(tabla);
+        String datos[] = new String[2];    //Variable que almacena los datos de la consulta
+            String sql = "SELECT * FROM tbl_producto WHERE PRO_DESCRIPCION LIKE '%"+keyword+"%'";  //Consulta sql
+        try {
+            st = cc.createStatement();
+            ResultSet resultado = st.executeQuery(sql);  //Linea que ejecuta la consulta sql y almacena los datos en resultado
 
             while (resultado.next()) {                                    //Bucle que recorre la consulta obtenida
                 datos[0] = resultado.getInt("ID_PRODUCTO")+"";

@@ -6,6 +6,7 @@
 package sistema_tienda;
 
 import Vistas.V_login;
+import javax.swing.UIManager;
 import modelos.conexion;
 
 /**
@@ -20,7 +21,11 @@ public class Sistema_Tienda {
     public static void main(String[] args) {
         V_login v_login = new V_login();
         v_login.setVisible(true);
-        
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }

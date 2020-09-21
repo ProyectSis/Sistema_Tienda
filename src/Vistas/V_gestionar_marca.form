@@ -129,6 +129,7 @@
           <SubComponents>
             <Component class="javax.swing.JTextField" name="txt_codigo">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Verdana" size="18" style="0"/>
                 </Property>
@@ -168,6 +169,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTextPane" name="txtDescripcion">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Verdana" size="18" style="0"/>
                     </Property>
@@ -238,6 +240,9 @@
                       <Table columnCount="0" rowCount="4"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_marcasMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
