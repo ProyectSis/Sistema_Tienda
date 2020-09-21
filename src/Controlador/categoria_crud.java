@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -20,11 +21,10 @@ public class categoria_crud {
     conexion conexion = new conexion();
     Connection cc = conexion.conectado();
     PreparedStatement preparedStatement = null;
-
+    Statement st = null;
     public void llenarComboboxCategoria(JComboBox cbox_categoria) {
 
 //Creamos objeto tipo Connection    
-        PreparedStatement pst = null;
         ResultSet result = null;
 
 //Creamos la Consulta SQL
@@ -35,9 +35,9 @@ public class categoria_crud {
 
             //Establecemos conexión con la BD 
             //Preparamos la consulta SQL
-            pst = cc.prepareStatement(SSQL);
+            preparedStatement = cc.prepareStatement(SSQL);
             //Ejecutamos la consulta
-            result = pst.executeQuery();
+            result = preparedStatement.executeQuery();
 
             //LLenamos nuestro ComboBox
             cbox_categoria.addItem("Seleccione...");
@@ -52,27 +52,7 @@ public class categoria_crud {
 
             JOptionPane.showMessageDialog(null, e);
 
-        } finally {
-
-            if (cc != null) {
-
-                try {
-
-                    cc.close();
-                    result.close();
-
-                    cc = null;
-                    result = null;
-
-                } catch (SQLException ex) {
-
-                    JOptionPane.showMessageDialog(null, ex);
-
-                }
-
-            }
-
-        }
+        } 
 
     }
 
@@ -85,6 +65,29 @@ public class categoria_crud {
         try {
             preparedStatement = cc.prepareStatement(sql);
             ResultSet resultado = preparedStatement.executeQuery();  //Linea que ejecuta la consulta sql y almacena los datos en resultado
+
+            while (resultado.next()) {                                    //Bucle que recorre la consulta obtenida
+                datos[0] = resultado.getString("ID_CATEGORIA");
+                datos[1] = resultado.getString("CAT_DESCRIPCION");
+                tabla.addRow(datos);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los Datos\n" + ex);
+        }
+    }
+    
+    public void buscarCategoria(JTable tbl_categoria, String keyword){
+        
+        tabla.setColumnCount(0);
+        tabla.setRowCount(0);
+        tabla.addColumn("ID");
+        tabla.addColumn("Descripcion");
+        tbl_categoria.setModel(tabla);
+        String datos[] = new String[2];    //Variable que almacena los datos de la consulta
+            String sql = "SELECT * FROM tbl_categoria WHERE cat_descripcion LIKE '%"+keyword+"%'";  //Consulta sql
+        try {
+            st = cc.createStatement();
+            ResultSet resultado = st.executeQuery(sql);  //Linea que ejecuta la consulta sql y almacena los datos en resultado
 
             while (resultado.next()) {                                    //Bucle que recorre la consulta obtenida
                 datos[0] = resultado.getString("ID_CATEGORIA");

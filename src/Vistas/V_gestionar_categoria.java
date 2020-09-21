@@ -13,13 +13,13 @@ import Controlador.categoria_crud;
  */
 public class V_gestionar_categoria extends javax.swing.JInternalFrame {
 
+        categoria_crud cat_crud = new categoria_crud();
     /**
      * Creates new form test5
      */
     public V_gestionar_categoria() {
         initComponents();
-        categoria_crud mar_crud = new categoria_crud();
-        mar_crud.mostrarDatosConTableModel(tbl_categorias);
+        cat_crud.mostrarDatosConTableModel(tbl_categorias);
     }
 
     /**
@@ -250,12 +250,8 @@ public class V_gestionar_categoria extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_codigoActionPerformed
 
-    private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBusquedaActionPerformed
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        cat_crud.buscarCategoria(tbl_categorias, txtBusqueda.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -273,6 +269,10 @@ public class V_gestionar_categoria extends javax.swing.JInternalFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
+         cat_crud.buscarCategoria(tbl_categorias, txtBusqueda.getText());
+    }//GEN-LAST:event_txtBusquedaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -16,9 +16,9 @@ public class V_gestionar_marca extends javax.swing.JInternalFrame {
     /**
      * Creates new form NewJInternalFrame
      */
+        marca_crud mar_crud = new marca_crud();
     public V_gestionar_marca() {
         initComponents();
-        marca_crud mar_crud = new marca_crud();
         mar_crud.mostrarDatosConTableModel(tbl_marcas);
     }
 
@@ -50,6 +50,7 @@ public class V_gestionar_marca extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
+        txt_codigo.setEditable(false);
         txt_codigo.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         txt_codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,6 +66,7 @@ public class V_gestionar_marca extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel2.setText("Codigo:");
 
+        txtDescripcion.setEditable(false);
         txtDescripcion.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jScrollPane2.setViewportView(txtDescripcion);
 
@@ -111,6 +113,11 @@ public class V_gestionar_marca extends javax.swing.JInternalFrame {
 
             }
         ));
+        tbl_marcas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_marcasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_marcas);
 
         txtBusqueda.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
@@ -251,11 +258,11 @@ public class V_gestionar_marca extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_codigoActionPerformed
 
     private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
-        // TODO add your handling code here:
+        mar_crud.buscarCategoria(tbl_marcas, txtBusqueda.getText());
     }//GEN-LAST:event_txtBusquedaActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+        mar_crud.buscarCategoria(tbl_marcas, txtBusqueda.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -267,12 +274,20 @@ public class V_gestionar_marca extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-
+        txt_codigo.setEditable(true);
+        txtDescripcion.setEditable(true);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void tbl_marcasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_marcasMouseClicked
+        String id = (String) tbl_marcas.getValueAt(tbl_marcas.getSelectedRow(), 0);
+        String descripcion = (String) tbl_marcas.getValueAt(tbl_marcas.getSelectedRow(), 1);
+        txt_codigo.setText(id);
+        txtDescripcion.setText(descripcion);
+    }//GEN-LAST:event_tbl_marcasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

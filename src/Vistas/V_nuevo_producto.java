@@ -48,6 +48,9 @@ public class V_nuevo_producto extends javax.swing.JInternalFrame {
         btnBorrar = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
 
+        setClosable(true);
+        setTitle("Nuevo producto");
+
         jLabel1.setBackground(new java.awt.Color(102, 102, 102));
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel1.setText("Descripcion:");
@@ -270,20 +273,19 @@ public class V_nuevo_producto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtPrecioActionPerformed
 
     private void btnGestionarCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarCategoriaMouseClicked
-        
-        V_gestionar_marca mar_gestionar = new V_gestionar_marca();
-        V_principal.PanelEscritorio.add(mar_gestionar);
-        mar_gestionar.toFront();
-        mar_gestionar.setVisible(true);
-        
+         V_gestionar_categoria cat_gestionar = new V_gestionar_categoria();
+        V_principal.PanelEscritorio.add(cat_gestionar);
+        cat_gestionar.toFront();
+        cat_gestionar.setVisible(true);
         System.out.println("hola");
     }//GEN-LAST:event_btnGestionarCategoriaMouseClicked
 
     private void btnGestionarMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionarMarcaMouseClicked
-        V_gestionar_categoria cat_gestionar = new V_gestionar_categoria();
-        V_principal.PanelEscritorio.add(cat_gestionar);
-        cat_gestionar.toFront();
-        cat_gestionar.setVisible(true);
+       
+         V_gestionar_marca mar_gestionar = new V_gestionar_marca();
+        V_principal.PanelEscritorio.add(mar_gestionar);
+        mar_gestionar.toFront();
+        mar_gestionar.setVisible(true);
     }//GEN-LAST:event_btnGestionarMarcaMouseClicked
 
     private void txtStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStockActionPerformed
