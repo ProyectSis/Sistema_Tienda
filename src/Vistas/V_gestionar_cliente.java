@@ -45,7 +45,7 @@ public void mostrarDatos(){
     }
     
      public void limpiar(){
-       
+            txtId.setText("");
             txtNombre.setText("");
             txtRuc.setText("");
             txtTelefono.setText("");
@@ -410,7 +410,7 @@ String estado;
                 estado = "0";
             }
             int id= Integer.parseInt(txtId.getText());
-            String sql="UPDATE tbl_cliente SET CLI_NOMBRE=?,CLI_CI_RUC=?, CLI_DIRECCIION=?, CLI_TELEFONO=?, CLI_ESTADO=? WHERE ID_CLIENTE="+id;
+            String sql="UPDATE tbl_cliente SET CLI_NOMBRE=?,CLI_CI_RUC=?, CLI_DIRECCION=?, CLI_TELEFONO=?, CLI_ESTADO=? WHERE ID_CLIENTE="+id;
             PreparedStatement ps = cc.prepareStatement(sql);
             ps.setString(1, txtNombre.getText());
             ps.setString(2, txtRuc.getText());
