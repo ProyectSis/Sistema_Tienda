@@ -143,9 +143,19 @@ public class V_principal extends javax.swing.JFrame {
         jMenu9.setText("Clientes");
 
         jMenuItem12.setText("Nuevo");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
         jMenu9.add(jMenuItem12);
 
         jMenuItem5.setText("Gestionar");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu9.add(jMenuItem5);
 
         jMenuBar1.add(jMenu9);
@@ -255,6 +265,24 @@ public class V_principal extends javax.swing.JFrame {
         gest_proveedor.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         gest_proveedor.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+         V_nuevo_cliente nue_cliente = new V_nuevo_cliente();
+        PanelEscritorio.add(nue_cliente);
+        Dimension FrameSize = nue_cliente.getSize();
+        Dimension desktopSize = PanelEscritorio.getSize();
+        nue_cliente.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        nue_cliente.setVisible(true);
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+     V_gestionar_cliente gest_cliente = new V_gestionar_cliente();
+        PanelEscritorio.add(gest_cliente);
+        Dimension FrameSize = gest_cliente.getSize();
+        Dimension desktopSize = PanelEscritorio.getSize();
+        gest_cliente.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        gest_cliente.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
