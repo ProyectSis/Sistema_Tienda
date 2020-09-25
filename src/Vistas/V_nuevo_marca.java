@@ -36,6 +36,10 @@ public class V_nuevo_marca extends javax.swing.JInternalFrame {
         txtDescripcion = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
 
+        setClosable(true);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         btnIngresar.setBackground(new java.awt.Color(0, 204, 51));
         btnIngresar.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
         btnIngresar.setText("Añadir");
@@ -63,6 +67,7 @@ public class V_nuevo_marca extends javax.swing.JInternalFrame {
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
 
         txtDescripcion.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N

@@ -1,4 +1,3 @@
-
 package Vistas;
 
 import java.sql.Connection;
@@ -9,26 +8,30 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelos.conexion;
 
-
 public class V_gestionar_proveedor extends javax.swing.JInternalFrame {
 
-     conexion conexion = new conexion();
+    conexion conexion = new conexion();
     Connection cc = conexion.conectado();
+
     public V_gestionar_proveedor() {
+        
+        ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)); 
         initComponents();
         mostrarDatos();
     }
-    public void mostrarDatos(){
-        String [] titulo = {"ID", "NOMBRE","RUC","TELEFONO","DIRECCION","CORREO"};
-        String [] registros = new String[6];
+
+    public void mostrarDatos() {
+        String[] titulo = {"ID", "NOMBRE", "RUC", "TELEFONO", "DIRECCION", "CORREO"};
+        String[] registros = new String[6];
         DefaultTableModel modelo = new DefaultTableModel(null, titulo);
-        
+
         String sql = "SELECT * FROM tbl_proveedor";
-        try{
+        try {
             Statement st = cc.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 registros[0] = rs.getString("ID_PROVEEDOR");
                 registros[1] = rs.getString("VEN_NOMBRE");
                 registros[2] = rs.getString("VEN_RUC");
@@ -36,23 +39,23 @@ public class V_gestionar_proveedor extends javax.swing.JInternalFrame {
                 registros[4] = rs.getString("PROV_DIRECCION");
                 registros[5] = rs.getString("PROV_CORREO");
                 modelo.addRow(registros);
-            }           
+            }
             tbl_proveedores.setModel(modelo);
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Error: " +e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e);
         }
     }
-    
-     public void limpiar(){
-       
-            txtNombre.setText("");
-            txtRuc.setText("");
-            txtTelefono.setText("");
-            txtDireccion.setText("");
-            txtCorreo.setText("");
-        
-      }
+
+    public void limpiar() {
+
+        txtNombre.setText("");
+        txtRuc.setText("");
+        txtTelefono.setText("");
+        txtDireccion.setText("");
+        txtCorreo.setText("");
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -81,6 +84,9 @@ public class V_gestionar_proveedor extends javax.swing.JInternalFrame {
         btnBorrar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista de productos registrados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         tbl_proveedores.setModel(new javax.swing.table.DefaultTableModel(
@@ -124,7 +130,7 @@ public class V_gestionar_proveedor extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 884, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(txtBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -143,6 +149,7 @@ public class V_gestionar_proveedor extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -280,17 +287,16 @@ public class V_gestionar_proveedor extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -347,33 +353,32 @@ public class V_gestionar_proveedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
- String [] titulo = {"ID", "NOMBRE","RUC","TELEFONO","DIRECCION","CORREO"};
-        String [] registros = new String[6];
+        String[] titulo = {"ID", "NOMBRE", "RUC", "TELEFONO", "DIRECCION", "CORREO"};
+        String[] registros = new String[6];
         DefaultTableModel modelo = new DefaultTableModel(null, titulo);
-         String parametro = txtBuscar.getText();
-        
-        String  sql = "SELECT * FROM tbl_proveedor WHERE VEN_NOMBRE = \"" + parametro +"\"";;
-      
-        try{
+        String parametro = txtBuscar.getText();
+
+        String sql = "SELECT * FROM tbl_proveedor WHERE VEN_NOMBRE = \"" + parametro + "\"";;
+
+        try {
             Statement st = cc.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            
-            while(rs.next()){
-             registros[0] = rs.getString("ID_PROVEEDOR");
+
+            while (rs.next()) {
+                registros[0] = rs.getString("ID_PROVEEDOR");
                 registros[1] = rs.getString("VEN_NOMBRE");
                 registros[2] = rs.getString("VEN_RUC");
                 registros[3] = rs.getString("VEN_TELEFONO");
                 registros[4] = rs.getString("PROV_DIRECCION");
                 registros[5] = rs.getString("PROV_CORREO");
                 modelo.addRow(registros);
-            }           
+            }
             tbl_proveedores.setModel(modelo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e);
         }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Error: " +e);
-        }
-        
-        
+
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -386,33 +391,30 @@ public class V_gestionar_proveedor extends javax.swing.JInternalFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
 
-     
-
-        try{
-   int id= Integer.parseInt(txtId.getText());
-            String sql="DELETE FROM tbl_proveedor WHERE ID_PROVEEDOR="+id;
+        try {
+            int id = Integer.parseInt(txtId.getText());
+            String sql = "DELETE FROM tbl_proveedor WHERE ID_PROVEEDOR=" + id;
             Statement st = cc.createStatement();
             int resultado = st.executeUpdate(sql);
-            if(resultado > 0){
+            if (resultado > 0) {
                 JOptionPane.showMessageDialog(this, "Se ha borrado el registro");
                 limpiar();
                 mostrarDatos();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this, "NO se pudo borrar el registro");
             }
 
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Error " +e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error " + e);
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        int fila=tbl_proveedores.getSelectedRow();
-        try{
-            
-            int id= Integer.parseInt(txtId.getText());
-            String sql="UPDATE tbl_proveedor SET VEN_NOMBRE=?,VEN_RUC=?, VEN_TELEFONO=?, PROV_DIRECCION=?, PROV_CORREO=? WHERE ID_PROVEEDOR="+id;
+        int fila = tbl_proveedores.getSelectedRow();
+        try {
+
+            int id = Integer.parseInt(txtId.getText());
+            String sql = "UPDATE tbl_proveedor SET VEN_NOMBRE=?,VEN_RUC=?, VEN_TELEFONO=?, PROV_DIRECCION=?, PROV_CORREO=? WHERE ID_PROVEEDOR=" + id;
             PreparedStatement ps = cc.prepareStatement(sql);
             ps.setString(1, txtNombre.getText());
             ps.setString(2, txtRuc.getText());
@@ -420,19 +422,17 @@ public class V_gestionar_proveedor extends javax.swing.JInternalFrame {
             ps.setString(4, txtDireccion.getText());
             ps.setString(5, txtCorreo.getText());
 
-
             int resultado = ps.executeUpdate();
-            if(resultado > 0){
+            if (resultado > 0) {
                 JOptionPane.showMessageDialog(this, "Se ha actualizado el registro");
 
                 mostrarDatos();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this, "NO se pudo actualizar el registro");
             }
 
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Error " +e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error " + e);
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
