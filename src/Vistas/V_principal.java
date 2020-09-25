@@ -563,6 +563,23 @@ public class V_principal extends javax.swing.JFrame {
         }
         */
     }
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+         V_nuevo_cliente nue_cliente = new V_nuevo_cliente();
+        PanelEscritorio.add(nue_cliente);
+        Dimension FrameSize = nue_cliente.getSize();
+        Dimension desktopSize = PanelEscritorio.getSize();
+        nue_cliente.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        nue_cliente.setVisible(true);
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+     V_gestionar_cliente gest_cliente = new V_gestionar_cliente();
+        PanelEscritorio.add(gest_cliente);
+        Dimension FrameSize = gest_cliente.getSize();
+        Dimension desktopSize = PanelEscritorio.getSize();
+        gest_cliente.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        gest_cliente.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
