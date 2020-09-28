@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" whenNoDataType="BlankPage" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="532ecec7-dbe8-4f4b-91ff-0f93b1bd4d25">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="2"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#BFEDFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#E6F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="style1"/>
+	<subDataset name="New Dataset 1" uuid="ef6121b0-ed74-4b93-aaa8-f7545937b59d">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     tbl_factura.`ID_FACTURA` AS tbl_factura_ID_FACTURA,
+     tbl_factura.`ID_FORMA_PAGO` AS tbl_factura_ID_FORMA_PAGO,
+     tbl_factura.`ID_CLIENTE` AS tbl_factura_ID_CLIENTE,
+     tbl_factura.`FACT_FECHA` AS tbl_factura_FACT_FECHA,
+     tbl_factura.`FACT_SUB_TOTAL` AS tbl_factura_FACT_SUB_TOTAL,
+     tbl_factura.`FACT_IVA` AS tbl_factura_FACT_IVA,
+     tbl_factura.`FACT_TOTAL` AS tbl_factura_FACT_TOTAL,
+     tbl_factura.`ID_VENDEDOR` AS tbl_factura_ID_VENDEDOR,
+     tbl_factura.`FACT_ESTADO` AS tbl_factura_FACT_ESTADO
+FROM
+     `tbl_factura` tbl_factura]]>
+		</queryString>
+		<field name="tbl_factura_ID_FACTURA" class="java.lang.Integer"/>
+		<field name="tbl_factura_ID_FORMA_PAGO" class="java.lang.Integer"/>
+		<field name="tbl_factura_ID_CLIENTE" class="java.lang.Integer"/>
+		<field name="tbl_factura_FACT_FECHA" class="java.sql.Date"/>
+		<field name="tbl_factura_FACT_SUB_TOTAL" class="java.lang.Float"/>
+		<field name="tbl_factura_FACT_IVA" class="java.lang.Float"/>
+		<field name="tbl_factura_FACT_TOTAL" class="java.lang.Float"/>
+		<field name="tbl_factura_ID_VENDEDOR" class="java.lang.Integer"/>
+		<field name="tbl_factura_FACT_ESTADO" class="java.lang.String"/>
+		<group name="tbl_factura_ID_FACTURA">
+			<groupExpression><![CDATA[$F{tbl_factura_ID_FACTURA}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="New Dataset 2" uuid="4bc5fd85-1dbd-43cc-af1c-920abf714f59">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     tbl_factura.`FACT_FECHA` AS FECHA,
+     tbl_factura.`FACT_SUB_TOTAL` AS SUBTOTAL,
+     tbl_factura.`FACT_IVA` AS IVA,
+     tbl_factura.`FACT_TOTAL` AS TOTAL,
+     tbl_factura.`FACT_ESTADO` AS ESTADO,
+     tbl_forma_pago.`FP_DESCRIPCION` AS DESCRIPCION,
+     tbl_cliente.`CLI_NOMBRE` AS CLIENTE,
+     tbl_vendedor.`VEN_NOMBRE` AS VENDEDOR,
+     tbl_factura.`ID_FACTURA` AS ID
+FROM
+     `tbl_forma_pago` tbl_forma_pago INNER JOIN `tbl_factura` tbl_factura ON tbl_forma_pago.`ID_FORMA_PAGO` = tbl_factura.`ID_FORMA_PAGO`
+     INNER JOIN `tbl_cliente` tbl_cliente ON tbl_factura.`ID_CLIENTE` = tbl_cliente.`ID_CLIENTE`
+     INNER JOIN `tbl_vendedor` tbl_vendedor ON tbl_factura.`ID_VENDEDOR` = tbl_vendedor.`ID_VENDEDOR`]]>
+		</queryString>
+		<field name="FECHA" class="java.sql.Date"/>
+		<field name="SUBTOTAL" class="java.lang.Float"/>
+		<field name="IVA" class="java.lang.Float"/>
+		<field name="TOTAL" class="java.lang.Float"/>
+		<field name="ESTADO" class="java.lang.String"/>
+		<field name="DESCRIPCION" class="java.lang.String"/>
+		<field name="CLIENTE" class="java.lang.String"/>
+		<field name="VENDEDOR" class="java.lang.String"/>
+		<field name="ID" class="java.lang.Integer"/>
+	</subDataset>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_factura.`FACT_FECHA` AS FECHA,
+     tbl_factura.`FACT_SUB_TOTAL` AS SUBTOTAL,
+     tbl_factura.`FACT_IVA` AS IVA,
+     tbl_factura.`FACT_TOTAL` AS TOTAL,
+     tbl_factura.`FACT_ESTADO` AS ESTADO,
+     tbl_forma_pago.`FP_DESCRIPCION` AS DESCRIPCION,
+     tbl_cliente.`CLI_NOMBRE` AS CLIENTE,
+     tbl_vendedor.`VEN_NOMBRE` AS VENDEDOR,
+     tbl_factura.`ID_FACTURA` AS ID
+FROM
+     `tbl_forma_pago` tbl_forma_pago INNER JOIN `tbl_factura` tbl_factura ON tbl_forma_pago.`ID_FORMA_PAGO` = tbl_factura.`ID_FORMA_PAGO`
+     INNER JOIN `tbl_cliente` tbl_cliente ON tbl_factura.`ID_CLIENTE` = tbl_cliente.`ID_CLIENTE`
+     INNER JOIN `tbl_vendedor` tbl_vendedor ON tbl_factura.`ID_VENDEDOR` = tbl_vendedor.`ID_VENDEDOR`]]>
+	</queryString>
+	<field name="FECHA" class="java.sql.Date"/>
+	<field name="SUBTOTAL" class="java.lang.Float"/>
+	<field name="IVA" class="java.lang.Float"/>
+	<field name="TOTAL" class="java.lang.Float"/>
+	<field name="ESTADO" class="java.lang.String"/>
+	<field name="DESCRIPCION" class="java.lang.String"/>
+	<field name="CLIENTE" class="java.lang.String"/>
+	<field name="VENDEDOR" class="java.lang.String"/>
+	<field name="ID" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="22" width="555" height="36" uuid="4e11a2d7-a1a1-473a-8d17-27299b28f322"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" size="24" isBold="false" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Historial de ventas]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="156" height="58" uuid="374f3c3c-d84c-47cb-8a42-51e688fa1267"/>
+				<imageExpression><![CDATA["C:\\Users\\Admin\\Pictures\\logoTECNOMEGA.jpg"]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="431" y="0" width="124" height="20" uuid="3ceb7eb0-9ed7-4cda-8481-fe4fb8661c0b"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="42" height="30" uuid="3517eac2-4015-4a62-bc95-61cb1fc69499"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="0" width="66" height="30" uuid="e7d96600-3b1f-4360-a5c0-232dfdaa5468"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="0" width="98" height="30" uuid="852db470-f71f-42bc-94c7-ddf0e82272bf"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="0" width="64" height="30" uuid="4c8ef4fe-ee2e-4ea6-8368-40f198bb078d"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUBTOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="272" y="0" width="42" height="30" uuid="144b07ad-cdde-4f93-8356-dc0072ad6127"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="314" y="0" width="52" height="30" uuid="0ae6f0e0-cd05-45f7-be95-f807fae7f887"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="366" y="0" width="65" height="30" uuid="a63f7fa2-7f11-4cdf-be40-8603dbd31d83"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="431" y="0" width="61" height="32" uuid="f7b26c65-b3e4-449c-9afe-493fec435147"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FORMA DE PAGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="492" y="0" width="63" height="30" uuid="c9553147-f6da-4a75-bea2-9c6111776ab2"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VENDEDOR]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="44" height="35" uuid="cedac9fa-7fbb-4194-9827-1115f3db8577"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="44" y="0" width="66" height="35" uuid="5ab9d8f9-33b3-4db6-b024-acbbac38b87e"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CLIENTE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="208" y="0" width="64" height="35" uuid="d5ad47c8-6198-499f-8bd9-002e9a22090f"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SUBTOTAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="0" width="98" height="35" uuid="65b913d3-f3f0-4394-a336-29c766f715d6"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{FECHA})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="0" width="42" height="33" uuid="1e64e30c-b7f0-44f4-bea5-72071212180e"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IVA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="314" y="0" width="52" height="33" uuid="15bf0501-ea48-48cb-b55b-1a7bf03eb968"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="366" y="0" width="65" height="33" uuid="f0952ffd-dd2c-4b60-b6ad-aec70d384e27"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ESTADO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="431" y="0" width="61" height="33" uuid="c408e1eb-b1c5-4e2c-b87b-0ae1f5f4b1d7"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="492" y="0" width="63" height="33" uuid="f4de84cd-533a-4d3f-9fd6-4eedd3dab867"/>
+				<textElement textAlignment="Center">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VENDEDOR}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="27">
+			<textField>
+				<reportElement x="0" y="2" width="555" height="25" uuid="276732c2-3d91-490b-8b9f-d1f05b31ec59"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

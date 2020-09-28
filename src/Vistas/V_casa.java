@@ -40,6 +40,8 @@ public class V_casa extends javax.swing.JInternalFrame {
         jButton7 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
+        setTitle("Inicio");
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N

@@ -1,19 +1,13 @@
 package Vistas;
 
 import java.awt.HeadlessException;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import modelos.conexion;
 import modelos.ingreso;
 
@@ -191,12 +185,13 @@ public class V_login extends javax.swing.JFrame {
             String login = txtUsuario.getText();
             ingreso ventana_p = new ingreso();
             try {
-                sql = "SELECT VEN_NOMBRE,VEN_USUARIO,VEN_CLAVE,ID_CARGO from tbl_vendedor where VEN_USUARIO='" + login + "'";
+                sql = "SELECT ID_VENDEDOR,VEN_NOMBRE,VEN_USUARIO,VEN_CLAVE,ID_CARGO from tbl_vendedor where VEN_USUARIO='" + login + "'";
                 Statement st = cc.createStatement();
                 ResultSet rs = st.executeQuery(sql);
 
                 if (rs.next()) {
 
+                    ventana_p.setId(rs.getInt("ID_VENDEDOR"));
                     ventana_p.setNombre(rs.getString("VEN_NOMBRE"));
                     ventana_p.setUsuario(rs.getString("VEN_USUARIO"));
                     ventana_p.setContrasenia(rs.getString("VEN_CLAVE"));
@@ -215,7 +210,9 @@ public class V_login extends javax.swing.JFrame {
                             //JOptionPane.showMessageDialog(this, "Bienvenido\t\n\n" + rs.getString("VEN_NOMBRE"));
                             V_principal interfaz = new V_principal();
                             V_principal.lblNombre.setText(rs.getString("VEN_NOMBRE"));
+                            System.out.println(ventana_p.getId());
                             V_principal.lblRol.setText(Srol);
+                            V_principal.lblID.setText(ventana_p.getId()+"");
                             interfaz.setVisible(true);
                             
                         }else{

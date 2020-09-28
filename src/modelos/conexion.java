@@ -12,13 +12,13 @@ public class conexion {
     private final String usuario = "admin123@tienda";
     private final String usuarioLocal = "root";
     private final String clave = "Tango2000.";
-    private final String calveLocal = "1234";
+    private final String calveLocal = "pass123";
     private final String hostname ="tienda-db.cftnpf71qyzx.us-east-1.rds.amazonaws.com"; //Direccion de la base de datos
     //private final String url = "jdbc:mysql://"+hostname+":3306/tienda?user=root&password=12345678"; //Direccion de la  coneccion
     
     private final String url ="jdbc:mysql://tienda.mysql.database.azure.com:3306/tienda?useSSL=true&requireSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; 
     private final String urlLocal = "jdbc:mysql://localhost/tienda?useTimezone=true&serverTimezone=UTC";
-//myDbConn = DriverManager.getConnection(url, "admin123@tienda", {Tango2000.});
+    //myDbConn = DriverManager.getConnection(url, "admin123@tienda", {Tango2000.});
     PreparedStatement prepareStatement;
     Connection conn = null;
     

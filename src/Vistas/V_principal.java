@@ -48,6 +48,7 @@ public class V_principal extends javax.swing.JFrame {
         } catch (PropertyVetoException ex) {
         }
         v_casa.show();
+        lblTitulo.setText("Inicio");
 //        lblFecha.setText(hourdateFormat.format(date));
 
     }
@@ -68,6 +69,7 @@ public class V_principal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         lblRol = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
+        lblID = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -80,9 +82,6 @@ public class V_principal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu8 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -92,6 +91,9 @@ public class V_principal extends javax.swing.JFrame {
         jMenu11 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
@@ -122,6 +124,8 @@ public class V_principal extends javax.swing.JFrame {
 
         lblFecha.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
 
+        lblID.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -132,18 +136,21 @@ public class V_principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addComponent(lblRol, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(340, Short.MAX_VALUE))
+                .addContainerGap(322, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblID, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel2)
@@ -274,34 +281,13 @@ public class V_principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/user (1).png"))); // NOI18N
-        jMenu8.setText("Usuarios");
-
-        jMenuItem3.setText("Nuevo");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu8.add(jMenuItem3);
-
-        jMenuItem4.setText("Gestionar");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu8.add(jMenuItem4);
-
-        jMenuBar1.add(jMenu8);
-
         jMenu9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/user (2).png"))); // NOI18N
         jMenu9.setText("Clientes");
 
         jMenuItem12.setText("Nuevo");
         jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
+                NuevoCliente(evt);
             }
         });
         jMenu9.add(jMenuItem12);
@@ -309,7 +295,7 @@ public class V_principal extends javax.swing.JFrame {
         jMenuItem5.setText("Gestionar");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                GestionarCliente(evt);
             }
         });
         jMenu9.add(jMenuItem5);
@@ -352,6 +338,27 @@ public class V_principal extends javax.swing.JFrame {
         jMenu11.add(jMenuItem11);
 
         jMenuBar1.add(jMenu11);
+
+        jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/user (1).png"))); // NOI18N
+        jMenu8.setText("Usuarios");
+
+        jMenuItem3.setText("Nuevo");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem3);
+
+        jMenuItem4.setText("Gestionar");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu8.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu8);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/repairing-tools.png"))); // NOI18N
         jMenu3.setText("Herramientas");
@@ -409,7 +416,6 @@ public class V_principal extends javax.swing.JFrame {
         if (JInternalFrames_Abiertos(pro_gestionar)) {
 
         } else {
-        LimpiarEscritorio();
             PanelEscritorio.add(pro_gestionar);
             try {
                 pro_gestionar.setMaximum(true);
@@ -420,12 +426,11 @@ public class V_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-       
+
         V_gestionar_vendedor gest_vendedor = new V_gestionar_vendedor();
         if (JInternalFrames_Abiertos(gest_vendedor)) {
 
         } else {
-        LimpiarEscritorio();
             PanelEscritorio.add(gest_vendedor);
             try {
                 gest_vendedor.setMaximum(true);
@@ -446,8 +451,7 @@ public class V_principal extends javax.swing.JFrame {
         if (JInternalFrames_Abiertos(pro_nuevo)) {
 
         } else {
-        LimpiarEscritorio();
-        
+
             PanelEscritorio.add(pro_nuevo);
             try {
                 pro_nuevo.setMaximum(true);
@@ -464,13 +468,12 @@ public class V_principal extends javax.swing.JFrame {
         if (JInternalFrames_Abiertos(nuevo_vendedor)) {
 
         } else {
-        LimpiarEscritorio();
             PanelEscritorio.add(nuevo_vendedor);
             try {
                 nuevo_vendedor.setMaximum(true);
             } catch (PropertyVetoException ex) {
             }
-            
+
             lblTitulo.setText(nuevo_vendedor.getTitle());
             nuevo_vendedor.show();
         }
@@ -481,13 +484,12 @@ public class V_principal extends javax.swing.JFrame {
         if (JInternalFrames_Abiertos(nuv_proveedor)) {
 
         } else {
-        LimpiarEscritorio();
             PanelEscritorio.add(nuv_proveedor);
             try {
                 nuv_proveedor.setMaximum(true);
             } catch (PropertyVetoException ex) {
             }
-            
+
             lblTitulo.setText(nuv_proveedor.getTitle());
             nuv_proveedor.show();
         }
@@ -499,13 +501,12 @@ public class V_principal extends javax.swing.JFrame {
         if (JInternalFrames_Abiertos(gest_proveedor)) {
 
         } else {
-        LimpiarEscritorio();
             PanelEscritorio.add(gest_proveedor);
             try {
                 gest_proveedor.setMaximum(true);
             } catch (PropertyVetoException ex) {
             }
-            
+
             lblTitulo.setText(gest_proveedor.getTitle());
             gest_proveedor.show();
         }
@@ -518,38 +519,62 @@ public class V_principal extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         LimpiarEscritorio();
-
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem12ActionPerformed
+    }
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        
+        V_gestionar_factura vf = new V_gestionar_factura();
+
+        if (JInternalFrames_Abiertos(vf)) {
+
+        } else {
+            PanelEscritorio.add(vf);
+            try {
+                vf.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+            }
+
+            lblTitulo.setText(vf.getTitle());
+            vf.txtVendedor.setText(lblNombre.getText());
+            vf.show();
+        }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-   public boolean JInternalFrames_Abiertos(JInternalFrame jif){ // Creamos un metodo publico de tipo boolean.
-     JInternalFrame [] jif_Activos = PanelEscritorio.getAllFrames(); // Este arreglo almacena todos los JInternalFrames que esten abierto en el jDesktopPane.
- 
-     for (int i = 0; i < jif_Activos.length; i++) { // Creamos un ciclo for para recorrer nuestro arreglo utilizando la propiedad length de nuestro arreglo.
- 
-          // Validamos con un if si nuestro arreglo en la posición i es igual al JInternalFrame que esta activo en el jDesktopPane, si es igual devolverá true.
-          if (jif.getClass().isInstance(jif_Activos[i])) {
-                JOptionPane.showMessageDialog(null, "La ventana que esta intentando abrir ya esta abierta.", "Información", JOptionPane.INFORMATION_MESSAGE);
-                
+    }
+
+    public boolean JInternalFrames_Abiertos(JInternalFrame jif) { // Creamos un metodo publico de tipo boolean.
+
+        JInternalFrame[] jif_Activos = PanelEscritorio.getAllFrames(); // Este arreglo almacena todos los JInternalFrames que esten abierto en el jDesktopPane.
+
+        for (int i = 0; i < jif_Activos.length; i++) { // Creamos un ciclo for para recorrer nuestro arreglo utilizando la propiedad length de nuestro arreglo.
+
+            // Validamos con un if si nuestro arreglo en la posición i es igual al JInternalFrame que esta activo en el jDesktopPane, si es igual devolverá true.
+            if (jif.getClass().isInstance(jif_Activos[i])) {
+                JOptionPane.showMessageDialog(null, "La ventana que esta intentando abrir ya esta abierta.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+
                 return true;
-                
-          }
-     }
-     return false;
-}
-    
+
+            }
+            jif_Activos[i].dispose();
+            PanelEscritorio.remove(jif_Activos[i]);
+
+        }
+
+        PanelEscritorio.add(v_casa);
+        v_casa.show();
+
+        lblTitulo.setText(jif.getTitle());
+
+        return false;
+    }
+
     public void LimpiarEscritorio() {
-        
+
         /*
         JInternalFrame[] jifAbiertos = PanelEscritorio.getAllFrames();
         for (int i = 0; i < jifAbiertos.length; i++) {
@@ -561,25 +586,52 @@ public class V_principal extends javax.swing.JFrame {
             PanelEscritorio.add(v_casa);
             v_casa.show();
         }
-        */
-    }
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-         V_nuevo_cliente nue_cliente = new V_nuevo_cliente();
-        PanelEscritorio.add(nue_cliente);
-        Dimension FrameSize = nue_cliente.getSize();
-        Dimension desktopSize = PanelEscritorio.getSize();
-        nue_cliente.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
-        nue_cliente.setVisible(true);
-    }//GEN-LAST:event_jMenuItem12ActionPerformed
+         */
+        JInternalFrame[] jif_Activos = PanelEscritorio.getAllFrames(); // Este arreglo almacena todos los JInternalFrames que esten abierto en el jDesktopPane.
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-     V_gestionar_cliente gest_cliente = new V_gestionar_cliente();
-        PanelEscritorio.add(gest_cliente);
-        Dimension FrameSize = gest_cliente.getSize();
-        Dimension desktopSize = PanelEscritorio.getSize();
-        gest_cliente.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
-        gest_cliente.setVisible(true);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+        for (int i = 0; i < jif_Activos.length; i++) { // Creamos un ciclo for para recorrer nuestro arreglo utilizando la propiedad length de nuestro arreglo.
+
+            // Validamos con un if si nuestro arreglo en la posición i es igual al JInternalFrame que esta activo en el jDesktopPane, si es igual devolverá true.
+            jif_Activos[i].dispose();
+            PanelEscritorio.remove(jif_Activos[i]);
+
+        }
+        lblTitulo.setText("Inicio");
+        PanelEscritorio.add(v_casa);
+        v_casa.show();
+    }
+
+    private void NuevoCliente(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoCliente
+        V_nuevo_cliente nue_cliente = new V_nuevo_cliente();
+        if (JInternalFrames_Abiertos(nue_cliente)) {
+
+        } else {
+            PanelEscritorio.add(nue_cliente);
+            try {
+                nue_cliente.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+            }
+
+            lblTitulo.setText(nue_cliente.getTitle());
+            nue_cliente.show();
+        }
+    }//GEN-LAST:event_NuevoCliente
+
+    private void GestionarCliente(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionarCliente
+        V_gestionar_cliente gest_cliente = new V_gestionar_cliente();
+        if (JInternalFrames_Abiertos(gest_cliente)) {
+
+        } else {
+            PanelEscritorio.add(gest_cliente);
+            try {
+                gest_cliente.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+            }
+
+            lblTitulo.setText(gest_cliente.getTitle());
+            gest_cliente.show();
+        }
+    }//GEN-LAST:event_GestionarCliente
 
     /**
      * @param args the command line arguments
@@ -648,8 +700,9 @@ public class V_principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     public static javax.swing.JLabel lblFecha;
+    public static javax.swing.JLabel lblID;
     public static javax.swing.JLabel lblNombre;
     public static javax.swing.JLabel lblRol;
-    private javax.swing.JLabel lblTitulo;
+    public javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
 }

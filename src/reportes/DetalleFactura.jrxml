@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b1743f6f-1ac4-4087-a7d4-1b00e5aa248d">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     SUM(tbl_producto.`PRO_PRECIO`*tbl_factura_producto.`DET_CANTIDAD`) AS PRECIOTOTAL,
+     tbl_factura_producto.`DET_CANTIDAD` AS tbl_factura_producto_DET_CANTIDAD,
+     tbl_producto.`PRO_DESCRIPCION` AS tbl_producto_PRO_DESCRIPCION,
+     tbl_producto.`PRO_PRECIO` AS tbl_producto_PRO_PRECIO,
+     tbl_factura.`FACT_FECHA` AS tbl_factura_FACT_FECHA,
+     tbl_factura.`FACT_SUB_TOTAL` AS tbl_factura_FACT_SUB_TOTAL,
+     tbl_factura.`FACT_IVA` AS tbl_factura_FACT_IVA,
+     tbl_factura.`FACT_TOTAL` AS tbl_factura_FACT_TOTAL,
+     tbl_forma_pago.`FP_DESCRIPCION` AS tbl_forma_pago_FP_DESCRIPCION,
+     tbl_cliente.`CLI_NOMBRE` AS tbl_cliente_CLI_NOMBRE,
+     tbl_cliente.`CLI_CI_RUC` AS tbl_cliente_CLI_CI_RUC,
+     tbl_cliente.`CLI_DIRECCION` AS tbl_cliente_CLI_DIRECCION,
+     tbl_cliente.`CLI_TELEFONO` AS tbl_cliente_CLI_TELEFONO,
+     tbl_vendedor.`VEN_NOMBRE` AS tbl_vendedor_VEN_NOMBRE,
+     tbl_factura.`FACT_ESTADO` AS tbl_factura_FACT_ESTADO,
+     tbl_factura_producto.`ID_FACTURA` AS tbl_factura_producto_ID_FACTURA,
+     tbl_factura_producto.`ID_PRODUCTO` AS tbl_factura_producto_ID_PRODUCTO
+FROM
+     `tbl_factura` tbl_factura INNER JOIN `tbl_factura_producto` tbl_factura_producto ON tbl_factura.`ID_FACTURA` = tbl_factura_producto.`ID_FACTURA`
+     INNER JOIN `tbl_producto` tbl_producto ON tbl_factura_producto.`ID_PRODUCTO` = tbl_producto.`ID_PRODUCTO`
+     INNER JOIN `tbl_forma_pago` tbl_forma_pago ON tbl_factura.`ID_FORMA_PAGO` = tbl_forma_pago.`ID_FORMA_PAGO`
+     INNER JOIN `tbl_cliente` tbl_cliente ON tbl_factura.`ID_CLIENTE` = tbl_cliente.`ID_CLIENTE`
+     INNER JOIN `tbl_vendedor` tbl_vendedor ON tbl_factura.`ID_VENDEDOR` = tbl_vendedor.`ID_VENDEDOR`]]>
+	</queryString>
+	<field name="PRECIOTOTAL" class="java.lang.Double"/>
+	<field name="tbl_factura_producto_DET_CANTIDAD" class="java.lang.Integer"/>
+	<field name="tbl_producto_PRO_DESCRIPCION" class="java.lang.String"/>
+	<field name="tbl_producto_PRO_PRECIO" class="java.lang.Float"/>
+	<field name="tbl_factura_FACT_FECHA" class="java.sql.Date"/>
+	<field name="tbl_factura_FACT_SUB_TOTAL" class="java.lang.Float"/>
+	<field name="tbl_factura_FACT_IVA" class="java.lang.Float"/>
+	<field name="tbl_factura_FACT_TOTAL" class="java.lang.Float"/>
+	<field name="tbl_forma_pago_FP_DESCRIPCION" class="java.lang.String"/>
+	<field name="tbl_cliente_CLI_NOMBRE" class="java.lang.String"/>
+	<field name="tbl_cliente_CLI_CI_RUC" class="java.lang.String"/>
+	<field name="tbl_cliente_CLI_DIRECCION" class="java.lang.String"/>
+	<field name="tbl_cliente_CLI_TELEFONO" class="java.lang.String"/>
+	<field name="tbl_vendedor_VEN_NOMBRE" class="java.lang.String"/>
+	<field name="tbl_factura_FACT_ESTADO" class="java.lang.String"/>
+	<field name="tbl_factura_producto_ID_FACTURA" class="java.lang.Integer"/>
+	<field name="tbl_factura_producto_ID_PRODUCTO" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="10" y="10" width="156" height="58" uuid="8b88bc76-558d-4076-bd43-8c73eb9ce683"/>
+				<imageExpression><![CDATA["C:\\Users\\Admin\\Pictures\\logoTECNOMEGA.jpg"]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="431" y="0" width="124" height="20" uuid="fb046017-df8c-4321-b389-a80e32182322"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="32" width="545" height="36" uuid="963757e1-6ea2-4cdc-8a13-a7225da352a9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" size="24" isBold="false" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Factura]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="266" y="0" width="100" height="20" uuid="87cf1eae-ba9c-4cdb-a037-8b1c334ca0f0"/>
+				<textFieldExpression><![CDATA[$F{tbl_factura_producto_ID_FACTURA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="166" y="0" width="100" height="20" uuid="f743c313-c920-4ae5-8af0-a7ff795cc2b8"/>
+				<text><![CDATA[N Factura]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="110" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="12" width="90" height="21" uuid="77167fa1-c4b6-4f7e-ab69-3735f457ca63"/>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="111" y="12" width="100" height="20" uuid="6a300270-0460-476e-ae80-541591597c91"/>
+				<textFieldExpression><![CDATA[$F{tbl_cliente_CLI_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="33" width="100" height="20" uuid="a84e9205-7deb-461b-adfc-dabf1926fa8c"/>
+				<textFieldExpression><![CDATA[$F{tbl_cliente_CLI_CI_RUC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="53" width="100" height="20" uuid="0ee626bc-8fc5-4619-91cb-7c41add259dc"/>
+				<textFieldExpression><![CDATA[$F{tbl_cliente_CLI_TELEFONO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="73" width="100" height="20" uuid="18c93934-a20d-46a5-afc1-828753774cdf"/>
+				<textFieldExpression><![CDATA[$F{tbl_cliente_CLI_DIRECCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="325" y="13" width="100" height="20" uuid="1f8bf665-678a-40e4-8deb-bceb2d714c1a"/>
+				<textFieldExpression><![CDATA[$F{tbl_vendedor_VEN_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="225" y="13" width="100" height="20" uuid="365a39aa-0936-4df8-b94f-d561b957660a"/>
+				<text><![CDATA[Vendedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="33" width="100" height="20" uuid="a0c281fc-3888-4b89-bc5b-de2479d048cb"/>
+				<text><![CDATA[Ruc/CI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="53" width="100" height="20" uuid="93c719a8-97cb-4f73-beb8-3a57ae0ffcb1"/>
+				<text><![CDATA[Telefono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="73" width="100" height="20" uuid="1544a88c-9eb3-445d-b76e-0292d82ea5fa"/>
+				<text><![CDATA[Direccion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="32" width="100" height="20" uuid="36849737-87c6-4afe-8cfd-86696fb147bc"/>
+				<text><![CDATA[Forma de pago:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="52" width="100" height="20" uuid="ee16d7c9-c3f5-479c-84b7-329e05e895c5"/>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="325" y="33" width="100" height="20" uuid="8e12a77e-bc0a-47fe-9fac-69210c56aacc"/>
+				<textFieldExpression><![CDATA[$F{tbl_forma_pago_FP_DESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="325" y="53" width="100" height="20" uuid="f14e8f03-ab71-4ce0-ac0c-50a0ebe6a8a7"/>
+				<textFieldExpression><![CDATA[$F{tbl_factura_FACT_ESTADO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="20" uuid="ff6fcff2-951a-45da-a51d-1f6cbd02ec94"/>
+				<text><![CDATA[P.V.P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="43" height="20" uuid="b4d2e1b8-dffd-43d6-8597-abd92cb9eaef"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="43" y="0" width="212" height="21" uuid="db37e8f4-58e6-41b3-917a-d3a1d3bb8fc3"/>
+				<text><![CDATA[DESCRIPCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="0" width="100" height="20" uuid="b70048ee-fe0b-4564-9c6d-da03f141a703"/>
+				<text><![CDATA[P.U.P]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="0" width="100" height="20" uuid="6017ea32-5329-4fab-9ac5-6e9781f87077"/>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="34" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="43" height="20" uuid="66037f76-47c6-482a-87d9-f627abe64519"/>
+				<textFieldExpression><![CDATA[$F{tbl_factura_producto_ID_PRODUCTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="0" width="212" height="21" uuid="b16da0ac-65ee-464b-b056-4b5cd4d41f76"/>
+				<textFieldExpression><![CDATA[$F{tbl_producto_PRO_DESCRIPCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="0" width="100" height="20" uuid="1925f858-8542-4d99-b7de-ad1fbb5e79b2"/>
+				<textFieldExpression><![CDATA[$F{tbl_producto_PRO_PRECIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="255" y="0" width="100" height="20" uuid="5a192bf6-078d-4183-933c-b3fd2bff268f"/>
+				<textFieldExpression><![CDATA[$F{tbl_factura_producto_DET_CANTIDAD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="1" width="100" height="20" uuid="458d2215-edf6-4cff-90fe-a49a720f1053"/>
+				<textFieldExpression><![CDATA[$F{PRECIOTOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="62">
+			<staticText>
+				<reportElement x="355" y="0" width="100" height="20" uuid="277c097b-1c9d-4d62-a97d-342f8e08c795"/>
+				<text><![CDATA[Subtotal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="20" width="100" height="20" uuid="ad9ba7bd-2a22-4250-829f-fded2d81b6da"/>
+				<text><![CDATA[IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="40" width="100" height="20" uuid="ed7a35bc-e11f-4ec9-af1b-8e09baed59c2"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="c4890e08-3419-4162-8ca2-340e84e5e2c4"/>
+				<textFieldExpression><![CDATA[$F{tbl_factura_FACT_SUB_TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="20" width="100" height="20" uuid="1b219566-3463-4c10-a609-dde5b7a45cd0"/>
+				<textFieldExpression><![CDATA[$F{tbl_factura_FACT_IVA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="40" width="100" height="20" uuid="e2ba896e-64e7-4373-a56e-d3d3709658aa"/>
+				<textFieldExpression><![CDATA[$F{tbl_factura_FACT_TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
