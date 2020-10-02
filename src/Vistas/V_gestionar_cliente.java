@@ -1,4 +1,3 @@
-
 package Vistas;
 
 import java.sql.Connection;
@@ -9,51 +8,59 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelos.conexion;
 
-
 public class V_gestionar_cliente extends javax.swing.JInternalFrame {
 
-   conexion conexion = new conexion();
+    conexion conexion = new conexion();
     Connection cc = conexion.conectado();
+
     public V_gestionar_cliente() {
-        ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
-        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)); 
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         initComponents();
         mostrarDatos();
+        if (V_principal.lblRol.getText() == "Vendedor") {
+            btnActualizar.setEnabled(false);
+            btnBorrar.setEnabled(false);
+            btnModificar.setEnabled(false);
+        }
     }
-public void mostrarDatos(){
-        String [] titulo = {"ID",  "NOMBRE","CI/RUC","DIRECCION","TELEFONO","ESTADO",};
-        String [] registros = new String[6];
+
+    public void mostrarDatos() {
+        String[] titulo = {"ID", "NOMBRE", "CI/RUC", "DIRECCION", "TELEFONO", "ESTADO","CORREO"};
+        String[] registros = new String[7];
         DefaultTableModel modelo = new DefaultTableModel(null, titulo);
-        
+
         String sql = "SELECT * FROM tbl_cliente";
-        try{
+        try {
             Statement st = cc.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 registros[0] = rs.getString("ID_CLIENTE");
                 registros[1] = rs.getString("CLI_NOMBRE");
                 registros[2] = rs.getString("CLI_CI_RUC");
                 registros[3] = rs.getString("CLI_DIRECCION");
                 registros[4] = rs.getString("CLI_TELEFONO");
                 registros[5] = rs.getString("CLI_ESTADO");
+                registros[6] = rs.getString("CLI_CORREO");
                 modelo.addRow(registros);
-            }           
+            }
             tbl_clientes.setModel(modelo);
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Error: " +e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }
-    
-     public void limpiar(){
-            txtId.setText("");
-            txtNombre.setText("");
-            txtRuc.setText("");
-            txtTelefono.setText("");
-            txtDireccion.setText("");
-        
-      }
+
+    public void limpiar() {
+        txtId.setText("");
+        txtNombre.setText("");
+        txtRuc.setText("");
+        txtTelefono.setText("");
+        txtDireccion.setText("");
+        txtcCorreo.setText("");
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -77,7 +84,8 @@ public void mostrarDatos(){
         jLabel8 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
         cboxEstado = new javax.swing.JComboBox<>();
-        btnVolver = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        txtcCorreo = new javax.swing.JTextField();
         btnActualizar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
@@ -145,7 +153,7 @@ public void mostrarDatos(){
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -183,6 +191,11 @@ public void mostrarDatos(){
         cboxEstado.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         cboxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setText("CORREO");
+
+        txtcCorreo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -191,30 +204,37 @@ public void mostrarDatos(){
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(81, 81, 81)
-                        .addComponent(txtId))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(42, 42, 42)
-                        .addComponent(txtNombre))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(64, 64, 64)
-                        .addComponent(txtRuc))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTelefono))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8))
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboxEstado, 0, 534, Short.MAX_VALUE)
-                            .addComponent(txtDireccion))))
-                .addGap(10, 10, 10))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(81, 81, 81)
+                                .addComponent(txtId))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(42, 42, 42)
+                                .addComponent(txtNombre))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(64, 64, 64)
+                                .addComponent(txtRuc))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTelefono))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel8))
+                                .addGap(9, 9, 9)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboxEstado, 0, 534, Short.MAX_VALUE)
+                                    .addComponent(txtDireccion))))
+                        .addGap(10, 10, 10))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(33, 33, 33)
+                        .addComponent(txtcCorreo)
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,21 +259,16 @@ public void mostrarDatos(){
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtcCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(cboxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
-
-        btnVolver.setBackground(new java.awt.Color(255, 102, 51));
-        btnVolver.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
-        btnVolver.setText("Volver");
-        btnVolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverActionPerformed(evt);
-            }
-        });
 
         btnActualizar.setBackground(new java.awt.Color(204, 255, 255));
         btnActualizar.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
@@ -292,31 +307,26 @@ public void mostrarDatos(){
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
                         .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(32, 32, 32)
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -343,7 +353,8 @@ public void mostrarDatos(){
         txtRuc.setText(tbl_clientes.getValueAt(fila, 2).toString());
         txtTelefono.setText(tbl_clientes.getValueAt(fila, 3).toString());
         txtDireccion.setText(tbl_clientes.getValueAt(fila, 4).toString());
-        
+        txtcCorreo.setText(tbl_clientes.getValueAt(fila, 6).toString());
+
     }//GEN-LAST:event_tbl_clientesMouseClicked
 
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
@@ -351,38 +362,33 @@ public void mostrarDatos(){
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String [] titulo = {"ID",  "NOMBRE","CI/RUC","DIRECCION","TELEFONO","ESTADO",};
-        String [] registros = new String[6];
+        String[] titulo = {"ID", "NOMBRE", "CI/RUC", "DIRECCION", "TELEFONO", "ESTADO","CORREO"};
+        String[] registros = new String[7];
         DefaultTableModel modelo = new DefaultTableModel(null, titulo);
         String parametro = txtBuscar.getText();
 
-        String  sql = "SELECT * FROM tbl_cliente WHERE CLI_NOMBRE = \"" + parametro +"\"";;
+        String sql = "SELECT * FROM tbl_cliente WHERE CLI_NOMBRE = \"" + parametro + "\"";;
 
-        try{
+        try {
             Statement st = cc.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
-            while(rs.next()){
-                 registros[0] = rs.getString("ID_CLIENTE");
+            while (rs.next()) {
+                registros[0] = rs.getString("ID_CLIENTE");
                 registros[1] = rs.getString("CLI_NOMBRE");
                 registros[2] = rs.getString("CLI_CI_RUC");
                 registros[3] = rs.getString("CLI_DIRECCION");
                 registros[4] = rs.getString("CLI_TELEFONO");
                 registros[5] = rs.getString("CLI_ESTADO");
+                registros[6] = rs.getString("CLI_CORREO");
                 modelo.addRow(registros);
             }
             tbl_clientes.setModel(modelo);
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Error: " +e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e);
         }
 
     }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        this.dispose();
-        
-    }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
@@ -390,36 +396,35 @@ public void mostrarDatos(){
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
 
-        try{
-            int id= Integer.parseInt(txtId.getText());
-            String sql="DELETE FROM tbl_cliente WHERE ID_CLIENTE="+id;
+        try {
+            int id = Integer.parseInt(txtId.getText());
+            String sql = "DELETE FROM tbl_cliente WHERE ID_CLIENTE=" + id;
             Statement st = cc.createStatement();
             int resultado = st.executeUpdate(sql);
-            if(resultado > 0){
+            if (resultado > 0) {
                 JOptionPane.showMessageDialog(this, "Se ha borrado el registro");
                 limpiar();
                 mostrarDatos();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this, "NO se pudo borrar el registro");
             }
 
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Error " +e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error " + e);
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        int fila=tbl_clientes.getSelectedRow();
-        try{
-String estado;
+        int fila = tbl_clientes.getSelectedRow();
+        try {
+            String estado;
             if (cboxEstado.getSelectedIndex() == 0) {
                 estado = "1";
             } else {
                 estado = "0";
             }
-            int id= Integer.parseInt(txtId.getText());
-            String sql="UPDATE tbl_cliente SET CLI_NOMBRE=?,CLI_CI_RUC=?, CLI_DIRECCION=?, CLI_TELEFONO=?, CLI_ESTADO=? WHERE ID_CLIENTE="+id;
+            int id = Integer.parseInt(txtId.getText());
+            String sql = "UPDATE tbl_cliente SET CLI_NOMBRE=?,CLI_CI_RUC=?, CLI_DIRECCION=?, CLI_TELEFONO=?, CLI_ESTADO=?,CLI_CORREO=? WHERE ID_CLIENTE=" + id;
             PreparedStatement ps = cc.prepareStatement(sql);
             ps.setString(1, txtNombre.getText());
             ps.setString(2, txtRuc.getText());
@@ -428,17 +433,16 @@ String estado;
             ps.setString(5, estado);
 
             int resultado = ps.executeUpdate();
-            if(resultado > 0){
+            if (resultado > 0) {
                 JOptionPane.showMessageDialog(this, "Se ha actualizado el registro");
 
                 mostrarDatos();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this, "NO se pudo actualizar el registro");
             }
 
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Error " +e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error " + e);
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -448,13 +452,13 @@ String estado;
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cboxEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -467,5 +471,6 @@ String estado;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRuc;
     private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtcCorreo;
     // End of variables declaration//GEN-END:variables
 }

@@ -170,10 +170,10 @@ public class V_login extends javax.swing.JFrame {
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         String clave = new String(txtClave.getPassword());
         String Srol = cboxRol.getSelectedItem().toString();
-        String rol;
+        String rol = "1";
         if (Srol == "Vendedor") {
             rol = "1";
-        } else {
+        } else if(Srol == "Administrador"){
             rol = "2";
         }
         if (txtUsuario.getText().length() < 1 && clave.length() < 1) {
@@ -185,7 +185,7 @@ public class V_login extends javax.swing.JFrame {
             String login = txtUsuario.getText();
             ingreso ventana_p = new ingreso();
             try {
-                sql = "SELECT ID_VENDEDOR,VEN_NOMBRE,VEN_USUARIO,VEN_CLAVE,ID_CARGO from tbl_vendedor where VEN_USUARIO='" + login + "'";
+                sql = "SELECT ID_VENDEDOR,VEN_NOMBRE,VEN_USUARIO,VEN_CLAVE,ID_CARGO from tbl_vendedor where VEN_USUARIO='" + login + "' AND ID_CARGO='" + rol + "'";
                 Statement st = cc.createStatement();
                 ResultSet rs = st.executeQuery(sql);
 
@@ -210,7 +210,6 @@ public class V_login extends javax.swing.JFrame {
                             //JOptionPane.showMessageDialog(this, "Bienvenido\t\n\n" + rs.getString("VEN_NOMBRE"));
                             V_principal interfaz = new V_principal();
                             V_principal.lblNombre.setText(rs.getString("VEN_NOMBRE"));
-                            System.out.println(ventana_p.getId());
                             V_principal.lblRol.setText(Srol);
                             V_principal.lblID.setText(ventana_p.getId()+"");
                             interfaz.setVisible(true);

@@ -3,48 +3,53 @@
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="id_factura" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-     SUM(tbl_producto.`PRO_PRECIO`*tbl_factura_producto.`DET_CANTIDAD`) AS PRECIOTOTAL,
      tbl_factura_producto.`DET_CANTIDAD` AS tbl_factura_producto_DET_CANTIDAD,
      tbl_producto.`PRO_DESCRIPCION` AS tbl_producto_PRO_DESCRIPCION,
      tbl_producto.`PRO_PRECIO` AS tbl_producto_PRO_PRECIO,
+     tbl_factura_producto.`ID_FACTURA` AS tbl_factura_producto_ID_FACTURA,
      tbl_factura.`FACT_FECHA` AS tbl_factura_FACT_FECHA,
      tbl_factura.`FACT_SUB_TOTAL` AS tbl_factura_FACT_SUB_TOTAL,
      tbl_factura.`FACT_IVA` AS tbl_factura_FACT_IVA,
      tbl_factura.`FACT_TOTAL` AS tbl_factura_FACT_TOTAL,
+     tbl_factura.`ID_VENDEDOR` AS tbl_factura_ID_VENDEDOR,
+     tbl_factura.`FACT_ESTADO` AS tbl_factura_FACT_ESTADO,
      tbl_forma_pago.`FP_DESCRIPCION` AS tbl_forma_pago_FP_DESCRIPCION,
+     tbl_vendedor.`VEN_NOMBRE` AS tbl_vendedor_VEN_NOMBRE,
      tbl_cliente.`CLI_NOMBRE` AS tbl_cliente_CLI_NOMBRE,
      tbl_cliente.`CLI_CI_RUC` AS tbl_cliente_CLI_CI_RUC,
      tbl_cliente.`CLI_DIRECCION` AS tbl_cliente_CLI_DIRECCION,
      tbl_cliente.`CLI_TELEFONO` AS tbl_cliente_CLI_TELEFONO,
-     tbl_vendedor.`VEN_NOMBRE` AS tbl_vendedor_VEN_NOMBRE,
-     tbl_factura.`FACT_ESTADO` AS tbl_factura_FACT_ESTADO,
-     tbl_factura_producto.`ID_FACTURA` AS tbl_factura_producto_ID_FACTURA,
      tbl_factura_producto.`ID_PRODUCTO` AS tbl_factura_producto_ID_PRODUCTO
 FROM
-     `tbl_factura` tbl_factura INNER JOIN `tbl_factura_producto` tbl_factura_producto ON tbl_factura.`ID_FACTURA` = tbl_factura_producto.`ID_FACTURA`
-     INNER JOIN `tbl_producto` tbl_producto ON tbl_factura_producto.`ID_PRODUCTO` = tbl_producto.`ID_PRODUCTO`
+     `tbl_factura_producto` tbl_factura_producto INNER JOIN `tbl_producto` tbl_producto ON tbl_factura_producto.`ID_PRODUCTO` = tbl_producto.`ID_PRODUCTO`
+     INNER JOIN `tbl_factura` tbl_factura ON tbl_factura_producto.`ID_FACTURA` = tbl_factura.`ID_FACTURA`
      INNER JOIN `tbl_forma_pago` tbl_forma_pago ON tbl_factura.`ID_FORMA_PAGO` = tbl_forma_pago.`ID_FORMA_PAGO`
+     INNER JOIN `tbl_vendedor` tbl_vendedor ON tbl_factura.`ID_VENDEDOR` = tbl_vendedor.`ID_VENDEDOR`
      INNER JOIN `tbl_cliente` tbl_cliente ON tbl_factura.`ID_CLIENTE` = tbl_cliente.`ID_CLIENTE`
-     INNER JOIN `tbl_vendedor` tbl_vendedor ON tbl_factura.`ID_VENDEDOR` = tbl_vendedor.`ID_VENDEDOR`]]>
+WHERE
+     tbl_factura_producto.`ID_FACTURA` = $P!{id_factura}]]>
 	</queryString>
-	<field name="PRECIOTOTAL" class="java.lang.Double"/>
 	<field name="tbl_factura_producto_DET_CANTIDAD" class="java.lang.Integer"/>
 	<field name="tbl_producto_PRO_DESCRIPCION" class="java.lang.String"/>
 	<field name="tbl_producto_PRO_PRECIO" class="java.lang.Float"/>
+	<field name="tbl_factura_producto_ID_FACTURA" class="java.lang.Integer"/>
 	<field name="tbl_factura_FACT_FECHA" class="java.sql.Date"/>
 	<field name="tbl_factura_FACT_SUB_TOTAL" class="java.lang.Float"/>
 	<field name="tbl_factura_FACT_IVA" class="java.lang.Float"/>
 	<field name="tbl_factura_FACT_TOTAL" class="java.lang.Float"/>
+	<field name="tbl_factura_ID_VENDEDOR" class="java.lang.Integer"/>
+	<field name="tbl_factura_FACT_ESTADO" class="java.lang.String"/>
 	<field name="tbl_forma_pago_FP_DESCRIPCION" class="java.lang.String"/>
+	<field name="tbl_vendedor_VEN_NOMBRE" class="java.lang.String"/>
 	<field name="tbl_cliente_CLI_NOMBRE" class="java.lang.String"/>
 	<field name="tbl_cliente_CLI_CI_RUC" class="java.lang.String"/>
 	<field name="tbl_cliente_CLI_DIRECCION" class="java.lang.String"/>
 	<field name="tbl_cliente_CLI_TELEFONO" class="java.lang.String"/>
-	<field name="tbl_vendedor_VEN_NOMBRE" class="java.lang.String"/>
-	<field name="tbl_factura_FACT_ESTADO" class="java.lang.String"/>
-	<field name="tbl_factura_producto_ID_FACTURA" class="java.lang.Integer"/>
 	<field name="tbl_factura_producto_ID_PRODUCTO" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -164,7 +169,7 @@ FROM
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="34" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="43" height="20" uuid="66037f76-47c6-482a-87d9-f627abe64519"/>
 				<textFieldExpression><![CDATA[$F{tbl_factura_producto_ID_PRODUCTO}]]></textFieldExpression>
@@ -183,10 +188,13 @@ FROM
 			</textField>
 			<textField>
 				<reportElement x="455" y="1" width="100" height="20" uuid="458d2215-edf6-4cff-90fe-a49a720f1053"/>
-				<textFieldExpression><![CDATA[$F{PRECIOTOTAL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tbl_factura_producto_DET_CANTIDAD}.floatValue()*$F{tbl_producto_PRO_PRECIO}]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="62">
+		<band/>
+	</detail>
+	<columnFooter>
+		<band height="63" splitType="Stretch">
 			<staticText>
 				<reportElement x="355" y="0" width="100" height="20" uuid="277c097b-1c9d-4d62-a97d-342f8e08c795"/>
 				<text><![CDATA[Subtotal:]]></text>
@@ -211,10 +219,10 @@ FROM
 				<reportElement x="455" y="40" width="100" height="20" uuid="e2ba896e-64e7-4373-a56e-d3d3709658aa"/>
 				<textFieldExpression><![CDATA[$F{tbl_factura_FACT_TOTAL}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="0b06e7fa-8752-466d-9755-26e6ffbf4e67"/>
+			</line>
 		</band>
-	</detail>
-	<columnFooter>
-		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band splitType="Stretch"/>

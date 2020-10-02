@@ -86,7 +86,7 @@ public class producto_crud {
         tabla.addColumn("Descripcion");
         tabla.addColumn("Costo");
         tabla.addColumn("Precio");
-        tabla.addColumn("Stck");
+        tabla.addColumn("Stock");
         tabla.addColumn("Categoria");
         tabla.addColumn("Marca");
         tabla.addColumn("Estado");
@@ -138,7 +138,7 @@ public class producto_crud {
 
         tabla.addColumn("Costo");
         tabla.addColumn("Precio");
-        tabla.addColumn("Stck");
+        tabla.addColumn("Stock");
         tabla.addColumn("Categoria");
         tabla.addColumn("Marca");
         tabla.addColumn("Estado");
@@ -234,7 +234,7 @@ public class producto_crud {
         tabla.addColumn("ID");
         tabla.addColumn("Descripcion");
         tabla.addColumn("Precio");
-        tabla.addColumn("Stck");
+        tabla.addColumn("Stock");
         tbl_producto.setModel(tabla);
         String datos[] = new String[4];    //Variable que almacena los datos de la consulta
         String sql = "SELECT ID_PRODUCTO,PRO_DESCRIPCION,PRO_PRECIO,PRo_STOCK FROM tbl_producto WHERE PRO_DESCRIPCION  LIKE '%" + kw + "%'";  //Consulta sql

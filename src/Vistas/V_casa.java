@@ -1,9 +1,11 @@
 
 package Vistas;
 
+import static Vistas.V_principal.JInternalFrames_Abiertos;
+import static Vistas.V_principal.PanelEscritorio;
+import static Vistas.V_principal.lblTitulo;
 import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class V_casa extends javax.swing.JInternalFrame {
 
@@ -13,6 +15,11 @@ public class V_casa extends javax.swing.JInternalFrame {
         ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)); 
         initComponents();
+        /*
+        if ("Vendedor".equals(V_principal.lblRol.getText())) {
+            btnUsarios.setEnabled(false);
+        }
+*/
     }
 
     
@@ -27,7 +34,7 @@ public class V_casa extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        btnUsarios = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -54,6 +61,11 @@ public class V_casa extends javax.swing.JInternalFrame {
         jButton1.setContentAreaFilled(false);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setFocusable(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/clients.png"))); // NOI18N
@@ -61,6 +73,11 @@ public class V_casa extends javax.swing.JInternalFrame {
         jButton2.setContentAreaFilled(false);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setFocusable(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -72,21 +89,31 @@ public class V_casa extends javax.swing.JInternalFrame {
         jButton3.setContentAreaFilled(false);
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.setFocusable(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Nuevo Cliente");
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/account.png"))); // NOI18N
-        jButton4.setBorderPainted(false);
-        jButton4.setContentAreaFilled(false);
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton4.setFocusable(false);
+        btnUsarios.setBackground(new java.awt.Color(255, 255, 255));
+        btnUsarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/account.png"))); // NOI18N
+        btnUsarios.setBorderPainted(false);
+        btnUsarios.setContentAreaFilled(false);
+        btnUsarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUsarios.setFocusable(false);
+        btnUsarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsariosActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Cuenta");
+        jLabel4.setText("Usuarios");
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add-cart.png"))); // NOI18N
@@ -114,6 +141,11 @@ public class V_casa extends javax.swing.JInternalFrame {
         jButton6.setContentAreaFilled(false);
         jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton6.setFocusable(false);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton8.setBackground(new java.awt.Color(255, 255, 255));
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/tag.png"))); // NOI18N
@@ -121,6 +153,11 @@ public class V_casa extends javax.swing.JInternalFrame {
         jButton8.setContentAreaFilled(false);
         jButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton8.setFocusable(false);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -132,6 +169,11 @@ public class V_casa extends javax.swing.JInternalFrame {
         jButton9.setContentAreaFilled(false);
         jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton9.setFocusable(false);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -143,6 +185,11 @@ public class V_casa extends javax.swing.JInternalFrame {
         jButton7.setContentAreaFilled(false);
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton7.setFocusable(false);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -169,7 +216,7 @@ public class V_casa extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(btnUsarios, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -207,7 +254,7 @@ public class V_casa extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel5)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnUsarios, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel4))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -259,27 +306,163 @@ public class V_casa extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       V_principal vP = new V_principal();
-        V_nuevo_producto pro_nuevo = new V_nuevo_producto();
-        if (vP.JInternalFrames_Abiertos(pro_nuevo)) {
-            
+       
+       V_gestionar_factura ges_factura = new V_gestionar_factura();
+        if (V_principal.JInternalFrames_Abiertos(ges_factura)) {
+
         } else {
-            vP.LimpiarEscritorio();
-            vP.PanelEscritorio.add(pro_nuevo);
+
+            V_principal.PanelEscritorio.add(ges_factura);
             try {
-                pro_nuevo.setMaximum(true);
+                ges_factura.setMaximum(true);
             } catch (PropertyVetoException ex) {
             }
-            pro_nuevo.setVisible(true);
+            V_principal.lblTitulo.setText(ges_factura.getTitle());
+            ges_factura.show();
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+         V_reporte_facturas vf = new V_reporte_facturas();
+        if (V_principal.JInternalFrames_Abiertos(vf)) {
+
+        } else {
+
+            V_principal.PanelEscritorio.add(vf);
+            try {
+                vf.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+            }
+            V_principal.lblTitulo.setText(vf.getTitle());
+            vf.show();
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        V_nuevo_cliente nue_cliente = new V_nuevo_cliente();
+        if (JInternalFrames_Abiertos(nue_cliente)) {
+
+        } else {
+            PanelEscritorio.add(nue_cliente);
+            try {
+                nue_cliente.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+            }
+
+            lblTitulo.setText(nue_cliente.getTitle());
+            nue_cliente.show();
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnUsariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsariosActionPerformed
+    if (V_principal.lblRol.getText() == "Vendedor") {
+           JOptionPane.showMessageDialog(null, "Solo el/los administrador/s tiene acceso");
+           
+        }else{
+        V_gestionar_vendedor ges_vendedor = new V_gestionar_vendedor();
+        if (JInternalFrames_Abiertos(ges_vendedor)) {
+
+        } else {
+            PanelEscritorio.add(ges_vendedor);
+            try {
+                ges_vendedor.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+            }
+
+            lblTitulo.setText(ges_vendedor.getTitle());
+            ges_vendedor.show();
+        }
+    }
+    }//GEN-LAST:event_btnUsariosActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        V_gestionar_producto pro_gestionar = new V_gestionar_producto();
+
+        if (JInternalFrames_Abiertos(pro_gestionar)) {
+
+        } else {
+            PanelEscritorio.add(pro_gestionar);
+            try {
+                pro_gestionar.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+            }
+            pro_gestionar.show();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        V_gestionar_cliente gest_cliente = new V_gestionar_cliente();
+        if (JInternalFrames_Abiertos(gest_cliente)) {
+
+        } else {
+            PanelEscritorio.add(gest_cliente);
+            try {
+                gest_cliente.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+            }
+
+            lblTitulo.setText(gest_cliente.getTitle());
+            gest_cliente.show();
+        }
+          
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        V_gestionar_marca gest_marca = new V_gestionar_marca();
+        if (JInternalFrames_Abiertos(gest_marca)) {
+
+        } else {
+            PanelEscritorio.add(gest_marca);
+            try {
+                gest_marca.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+            }
+
+            lblTitulo.setText(gest_marca.getTitle());
+            gest_marca.show();
+        }
+          
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        V_gestionar_categoria gest_categoria = new V_gestionar_categoria();
+        if (JInternalFrames_Abiertos(gest_categoria)) {
+
+        } else {
+            PanelEscritorio.add(gest_categoria);
+            try {
+                gest_categoria.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+            }
+
+            lblTitulo.setText(gest_categoria.getTitle());
+            gest_categoria.show();
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        V_gestionar_proveedor gest_proveedor = new V_gestionar_proveedor();
+
+        if (JInternalFrames_Abiertos(gest_proveedor)) {
+
+        } else {
+            PanelEscritorio.add(gest_proveedor);
+            try {
+                gest_proveedor.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+            }
+
+            lblTitulo.setText(gest_proveedor.getTitle());
+            gest_proveedor.show();
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnUsarios;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
