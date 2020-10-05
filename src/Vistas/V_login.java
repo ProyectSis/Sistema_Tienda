@@ -60,6 +60,11 @@ public class V_login extends javax.swing.JFrame {
         jLabel2.setText("Clave:");
 
         txtUsuario.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuarioActionPerformed(evt);
+            }
+        });
 
         cboxRol.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         cboxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vendedor", "Administrador" }));
@@ -80,6 +85,12 @@ public class V_login extends javax.swing.JFrame {
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
+            }
+        });
+
+        txtClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClaveActionPerformed(evt);
             }
         });
 
@@ -168,6 +179,25 @@ public class V_login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+    ingresar();
+    }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void cboxRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxRolActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxRolActionPerformed
+
+    private void btnIngresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresar1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnIngresar1ActionPerformed
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        txtClave.requestFocus();
+    }//GEN-LAST:event_txtUsuarioActionPerformed
+
+    private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
+        ingresar();
+    }//GEN-LAST:event_txtClaveActionPerformed
+    public void ingresar(){
         String clave = new String(txtClave.getPassword());
         String Srol = cboxRol.getSelectedItem().toString();
         String rol = "1";
@@ -235,16 +265,7 @@ public class V_login extends javax.swing.JFrame {
             // String nombre=ventana_p.getNombre();
 
         }
-    }//GEN-LAST:event_btnIngresarActionPerformed
-
-    private void cboxRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxRolActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboxRolActionPerformed
-
-    private void btnIngresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresar1ActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnIngresar1ActionPerformed
-      
+    }
     public static void main(String args[]) {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");

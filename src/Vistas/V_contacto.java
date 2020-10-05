@@ -71,13 +71,13 @@ public class V_contacto extends javax.swing.JInternalFrame {
         jLabel6.setText("Celular:");
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        jLabel7.setText("Av. 10 de agosto y carbajal");
+        jLabel7.setText("Av. 10 de agosto y rumipamba");
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel8.setText("0000178384424");
 
         jLabel9.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        jLabel9.setText("tecnoshopuio@gmail.com");
+        jLabel9.setText("tecnoshop.ecuador.uio@gmail.com");
 
         jLabel10.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel10.setText("0987656734");
@@ -105,10 +105,10 @@ public class V_contacto extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(

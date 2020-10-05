@@ -1,11 +1,16 @@
 package Vistas;
 
 import Controlador.factura_crud;
+import java.awt.HeadlessException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelos.conexion;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -28,15 +33,17 @@ public class V_reporte_facturas extends javax.swing.JInternalFrame {
     /**
      * Creates new form V_reporte_facturas
      */
-    
     factura_crud fc = new factura_crud();
+    conexion conexion = new conexion();
+    Connection cc = conexion.conectado();
+
     public V_reporte_facturas() {
-        
+
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         initComponents();
-        fc.mostrarFacturas(txt_facturas);
-         
+        fc.mostrarFacturas(txt_facturas, "");
+
     }
 
     /**
@@ -54,13 +61,17 @@ public class V_reporte_facturas extends javax.swing.JInternalFrame {
         txt_facturas = new javax.swing.JTable();
         btnDetalle = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        chekFinalizado = new javax.swing.JCheckBox();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setTitle("Reporte");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Historial"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Historial", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 0, 18))); // NOI18N
 
         txt_facturas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,7 +92,7 @@ public class V_reporte_facturas extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(txt_facturas);
 
-        btnDetalle.setText("Ver detalle");
+        btnDetalle.setText("Ver factura");
         btnDetalle.setEnabled(false);
         btnDetalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,12 +100,42 @@ public class V_reporte_facturas extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/print.png"))); // NOI18N
         jButton1.setText("Imprimir historial");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setEnabled(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        chekFinalizado.setBackground(new java.awt.Color(255, 255, 255));
+        chekFinalizado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        chekFinalizado.setText("Marcar como Finalizado");
+        chekFinalizado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chekFinalizadoActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Por dia", "Por mes", "Por año" }));
+        jComboBox1.setOpaque(false);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Filtrar por:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -103,24 +144,35 @@ public class V_reporte_facturas extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(165, 165, 165)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnDetalle)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(chekFinalizado)
+                        .addGap(229, 229, 229)
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDetalle)
-                    .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chekFinalizado)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -136,8 +188,8 @@ public class V_reporte_facturas extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -188,19 +240,99 @@ public class V_reporte_facturas extends javax.swing.JInternalFrame {
 
     private void btnDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalleActionPerformed
         V_factura_detalle fd = new V_factura_detalle();
-        fd.txtNFactura.setText(txt_facturas.getValueAt(txt_facturas.getSelectedRow(), 0)+"");
+        fd.txtNFactura.setText(txt_facturas.getValueAt(txt_facturas.getSelectedRow(), 0) + "");
         fd.setVisible(true);
     }//GEN-LAST:event_btnDetalleActionPerformed
 
     private void txt_facturasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_facturasMouseClicked
         btnDetalle.setEnabled(true);
-        
+        btnEliminar.setEnabled(true);
+        if (txt_facturas.getValueAt(txt_facturas.getSelectedRow(), 6).equals("En Proceso")) {
+            chekFinalizado.setSelected(false);
+            chekFinalizado.setEnabled(true);
+        } else {
+            chekFinalizado.setEnabled(false);
+            chekFinalizado.setSelected(true);
+
+        }
     }//GEN-LAST:event_txt_facturasMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int id = Integer.parseInt((String) txt_facturas.getValueAt(txt_facturas.getSelectedRow(), 0));
+        int reply = JOptionPane.showConfirmDialog(null, "¿Esta seguro que quiere borrar el registro?", "Atencion", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+
+            try {
+                String sql = "DELETE facturap FROM tbl_factura_producto as facturap INNER JOIN tbl_factura as f ON facturap.ID_FACTURA = f.ID_FACTURA WHERE facturap.ID_FACTURA =" + id;
+                Statement st = cc.createStatement();
+                int resultado = st.executeUpdate(sql);
+                if (resultado > 0) {
+
+                } else {
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error " + e);
+            }
+            try {
+                String sql2 = "DELETE fa FROM tbl_factura as fa WHERE ID_FACTURA = " + id;
+
+                Statement st2 = cc.createStatement();
+                int resultado2 = st2.executeUpdate(sql2);
+                if (resultado2 > 0) {
+                    JOptionPane.showMessageDialog(this, "Se ha borrado el registro");
+                    fc.mostrarFacturas(txt_facturas, "");
+                }
+            } catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void chekFinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chekFinalizadoActionPerformed
+        int fila = txt_facturas.getSelectedRow();
+        try {
+            String estado;
+            int id = Integer.parseInt(txt_facturas.getValueAt(txt_facturas.getSelectedRow(), 0) + "");
+            String sql = "UPDATE tbl_factura SET FACT_ESTADO=? WHERE ID_FACTURA=" + id;
+            PreparedStatement ps = cc.prepareStatement(sql);
+            ps.setString(1, "Finalizado");
+
+            int resultado = ps.executeUpdate();
+            if (resultado > 0) {
+                JOptionPane.showMessageDialog(this, "Se ha actualizado el registro");
+
+                fc.mostrarFacturas(txt_facturas, "");
+            } else {
+                JOptionPane.showMessageDialog(this, "NO se pudo actualizar el registro");
+            }
+
+        } catch (NumberFormatException | SQLException | HeadlessException e) {
+            JOptionPane.showMessageDialog(this, "Error " + e);
+        }
+        chekFinalizado.setEnabled(false);
+    }//GEN-LAST:event_chekFinalizadoActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        if (jComboBox1.getSelectedItem().equals("Por dia")) {
+            fc.mostrarFacturas(txt_facturas, "Por dia");
+
+        } else if (jComboBox1.getSelectedItem().equals("Por mes")) {
+            fc.mostrarFacturas(txt_facturas, "Por mes");
+
+        } else if (jComboBox1.getSelectedItem().equals("Por año")) {
+            fc.mostrarFacturas(txt_facturas, "Por año");
+
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDetalle;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JCheckBox chekFinalizado;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;

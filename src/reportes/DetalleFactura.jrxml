@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b1743f6f-1ac4-4087-a7d4-1b00e5aa248d">
-	<property name="ireport.zoom" value="1.5"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="555" pageHeight="802" columnWidth="535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="b1743f6f-1ac4-4087-a7d4-1b00e5aa248d">
+	<property name="ireport.zoom" value="1.7261356071965523"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="24"/>
 	<parameter name="id_factura" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
+     
      tbl_factura_producto.`DET_CANTIDAD` AS tbl_factura_producto_DET_CANTIDAD,
      tbl_producto.`PRO_DESCRIPCION` AS tbl_producto_PRO_DESCRIPCION,
      tbl_producto.`PRO_PRECIO` AS tbl_producto_PRO_PRECIO,
@@ -30,7 +31,7 @@ FROM
      INNER JOIN `tbl_factura` tbl_factura ON tbl_factura_producto.`ID_FACTURA` = tbl_factura.`ID_FACTURA`
      INNER JOIN `tbl_forma_pago` tbl_forma_pago ON tbl_factura.`ID_FORMA_PAGO` = tbl_forma_pago.`ID_FORMA_PAGO`
      INNER JOIN `tbl_vendedor` tbl_vendedor ON tbl_factura.`ID_VENDEDOR` = tbl_vendedor.`ID_VENDEDOR`
-     INNER JOIN `tbl_cliente` tbl_cliente ON tbl_factura.`ID_CLIENTE` = tbl_cliente.`ID_CLIENTE`
+     LEFT JOIN `tbl_cliente` tbl_cliente ON tbl_factura.`ID_CLIENTE` = tbl_cliente.`ID_CLIENTE`
 WHERE
      tbl_factura_producto.`ID_FACTURA` = $P!{id_factura}]]>
 	</queryString>
@@ -52,175 +53,307 @@ WHERE
 	<field name="tbl_cliente_CLI_TELEFONO" class="java.lang.String"/>
 	<field name="tbl_factura_producto_ID_PRODUCTO" class="java.lang.Integer"/>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="802" splitType="Stretch">
+			<image>
+				<reportElement x="7" y="25" width="542" height="777" uuid="657a2d5d-ef4b-4cb1-925a-93d32624c7e1"/>
+				<imageExpression><![CDATA["C:\\Users\\Admin\\Documents\\NetBeansProjects\\Sistema_Tienda\\Sistema_Tienda\\src\\Imagenes\\BackgroundFactura.png"]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
-			<image>
-				<reportElement x="10" y="10" width="156" height="58" uuid="8b88bc76-558d-4076-bd43-8c73eb9ce683"/>
-				<imageExpression><![CDATA["C:\\Users\\Admin\\Pictures\\logoTECNOMEGA.jpg"]]></imageExpression>
-			</image>
+		<band height="127" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="431" y="0" width="124" height="20" uuid="fb046017-df8c-4321-b389-a80e32182322"/>
+				<reportElement x="406" y="31" width="124" height="20" uuid="fb046017-df8c-4321-b389-a80e32182322"/>
 				<textElement textAlignment="Right">
-					<font size="14"/>
+					<font fontName="Century Gothic" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="10" y="32" width="545" height="36" uuid="963757e1-6ea2-4cdc-8a13-a7225da352a9"/>
-				<textElement textAlignment="Center">
-					<font fontName="Century Gothic" size="24" isBold="false" isItalic="false" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[Factura]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="266" y="0" width="100" height="20" uuid="87cf1eae-ba9c-4cdb-a037-8b1c334ca0f0"/>
+				<reportElement x="433" y="91" width="100" height="20" uuid="87cf1eae-ba9c-4cdb-a037-8b1c334ca0f0"/>
 				<textFieldExpression><![CDATA[$F{tbl_factura_producto_ID_FACTURA}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="166" y="0" width="100" height="20" uuid="f743c313-c920-4ae5-8af0-a7ff795cc2b8"/>
-				<text><![CDATA[N Factura]]></text>
+				<reportElement x="333" y="91" width="100" height="20" uuid="f743c313-c920-4ae5-8af0-a7ff795cc2b8"/>
+				<textElement>
+					<font fontName="Century Gothic"/>
+				</textElement>
+				<text><![CDATA[Factura N:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="19" y="123" width="521" height="1" uuid="67cbaecb-40ee-46fd-a485-9cc783c0d10c"/>
+			</line>
+			<image>
+				<reportElement x="30" y="38" width="189" height="53" uuid="1160aaec-a180-44ec-a2f7-41f0ad5a2498"/>
+				<imageExpression><![CDATA["C:\\Users\\Admin\\Documents\\NetBeansProjects\\Sistema_Tienda\\Sistema_Tienda\\src\\Imagenes\\logo3.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="-305" y="7" width="90" height="21" uuid="4ad1e0ca-06d9-41aa-b3b4-e36de7458bc1"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="31" width="100" height="20" uuid="ab3c8338-77d4-45d3-a265-02aa5a509340"/>
+				<textElement>
+					<font fontName="Century Gothic" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TecnoShop-UIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="51" width="126" height="20" uuid="3b997b84-149a-4e68-b29e-a2b3da5ed349"/>
+				<textElement>
+					<font fontName="Century Gothic" size="8"/>
+				</textElement>
+				<text><![CDATA[Av. 10 de agosto y rumipamba]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="71" width="153" height="20" uuid="ff9647ba-472b-49a7-a522-4b519a85fd9e"/>
+				<textElement>
+					<font fontName="Century Gothic" size="8"/>
+				</textElement>
+				<text><![CDATA[tecnoshop.ecuador.uio@gmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="91" width="100" height="20" uuid="f1b093db-282b-4fbb-b408-ce90541dad0e"/>
+				<textElement>
+					<font fontName="Century Gothic" size="8"/>
+				</textElement>
+				<text><![CDATA[0987656734]]></text>
 			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="110" splitType="Stretch">
+		<band height="152" splitType="Stretch">
 			<staticText>
-				<reportElement x="10" y="12" width="90" height="21" uuid="77167fa1-c4b6-4f7e-ab69-3735f457ca63"/>
+				<reportElement x="18" y="29" width="90" height="21" uuid="77167fa1-c4b6-4f7e-ab69-3735f457ca63"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
 				<text><![CDATA[Cliente:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="111" y="12" width="100" height="20" uuid="6a300270-0460-476e-ae80-541591597c91"/>
+				<reportElement x="119" y="29" width="173" height="20" uuid="6a300270-0460-476e-ae80-541591597c91"/>
+				<textElement>
+					<font fontName="Century Gothic"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{tbl_cliente_CLI_NOMBRE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="111" y="33" width="100" height="20" uuid="a84e9205-7deb-461b-adfc-dabf1926fa8c"/>
+				<reportElement x="119" y="50" width="173" height="20" uuid="a84e9205-7deb-461b-adfc-dabf1926fa8c"/>
+				<textElement>
+					<font fontName="Century Gothic"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{tbl_cliente_CLI_CI_RUC}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="111" y="53" width="100" height="20" uuid="0ee626bc-8fc5-4619-91cb-7c41add259dc"/>
+				<reportElement x="119" y="70" width="173" height="20" uuid="0ee626bc-8fc5-4619-91cb-7c41add259dc"/>
+				<textElement>
+					<font fontName="Century Gothic"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{tbl_cliente_CLI_TELEFONO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="111" y="73" width="100" height="20" uuid="18c93934-a20d-46a5-afc1-828753774cdf"/>
+				<reportElement x="119" y="90" width="173" height="20" uuid="18c93934-a20d-46a5-afc1-828753774cdf"/>
+				<textElement>
+					<font fontName="Century Gothic"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{tbl_cliente_CLI_DIRECCION}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="325" y="13" width="100" height="20" uuid="1f8bf665-678a-40e4-8deb-bceb2d714c1a"/>
+				<reportElement x="419" y="30" width="100" height="20" uuid="1f8bf665-678a-40e4-8deb-bceb2d714c1a"/>
+				<textElement>
+					<font fontName="Century Gothic"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{tbl_vendedor_VEN_NOMBRE}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="225" y="13" width="100" height="20" uuid="365a39aa-0936-4df8-b94f-d561b957660a"/>
+				<reportElement x="319" y="30" width="100" height="20" uuid="365a39aa-0936-4df8-b94f-d561b957660a"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
 				<text><![CDATA[Vendedor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="11" y="33" width="100" height="20" uuid="a0c281fc-3888-4b89-bc5b-de2479d048cb"/>
+				<reportElement x="19" y="50" width="100" height="20" uuid="a0c281fc-3888-4b89-bc5b-de2479d048cb"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
 				<text><![CDATA[Ruc/CI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="53" width="100" height="20" uuid="93c719a8-97cb-4f73-beb8-3a57ae0ffcb1"/>
+				<reportElement x="18" y="70" width="100" height="20" uuid="93c719a8-97cb-4f73-beb8-3a57ae0ffcb1"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
 				<text><![CDATA[Telefono]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="11" y="73" width="100" height="20" uuid="1544a88c-9eb3-445d-b76e-0292d82ea5fa"/>
+				<reportElement x="19" y="90" width="100" height="20" uuid="1544a88c-9eb3-445d-b76e-0292d82ea5fa"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
 				<text><![CDATA[Direccion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="225" y="32" width="100" height="20" uuid="36849737-87c6-4afe-8cfd-86696fb147bc"/>
+				<reportElement x="319" y="49" width="100" height="20" uuid="36849737-87c6-4afe-8cfd-86696fb147bc"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
 				<text><![CDATA[Forma de pago:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="225" y="52" width="100" height="20" uuid="ee16d7c9-c3f5-479c-84b7-329e05e895c5"/>
+				<reportElement x="319" y="69" width="100" height="20" uuid="ee16d7c9-c3f5-479c-84b7-329e05e895c5"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
 				<text><![CDATA[Estado:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="325" y="33" width="100" height="20" uuid="8e12a77e-bc0a-47fe-9fac-69210c56aacc"/>
+				<reportElement x="419" y="50" width="100" height="20" uuid="8e12a77e-bc0a-47fe-9fac-69210c56aacc"/>
+				<textElement>
+					<font fontName="Century Gothic"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{tbl_forma_pago_FP_DESCRIPCION}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="325" y="53" width="100" height="20" uuid="f14e8f03-ab71-4ce0-ac0c-50a0ebe6a8a7"/>
+				<reportElement x="419" y="70" width="100" height="20" uuid="f14e8f03-ab71-4ce0-ac0c-50a0ebe6a8a7"/>
+				<textElement>
+					<font fontName="Century Gothic"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{tbl_factura_FACT_ESTADO}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="-305" y="7" width="90" height="21" uuid="7c595fca-d822-4bf1-b40f-e45987d6270f"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-638" y="-25" width="90" height="21" uuid="d9c33d50-ad1f-4af8-ad00-bffb19518f89"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="7" width="100" height="20" uuid="21c24c31-57f4-40ac-8e00-ce00d67ccc43"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Facturar a:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="110" width="555" height="31" uuid="e393c540-260d-4591-9eaa-b6422f86af3b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="18"/>
+				</textElement>
+				<text><![CDATA[Detalle]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="21" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement x="455" y="0" width="100" height="20" uuid="ff6fcff2-951a-45da-a51d-1f6cbd02ec94"/>
-				<text><![CDATA[P.V.P]]></text>
+				<reportElement x="433" y="1" width="100" height="20" uuid="ff6fcff2-951a-45da-a51d-1f6cbd02ec94"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor total]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="0" width="43" height="20" uuid="b4d2e1b8-dffd-43d6-8597-abd92cb9eaef"/>
-				<text><![CDATA[ID]]></text>
+				<reportElement x="333" y="0" width="100" height="20" uuid="b70048ee-fe0b-4564-9c6d-da03f141a703"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[P.Unitario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="43" y="0" width="212" height="21" uuid="db37e8f4-58e6-41b3-917a-d3a1d3bb8fc3"/>
-				<text><![CDATA[DESCRIPCION]]></text>
+				<reportElement x="19" y="1" width="100" height="20" uuid="6017ea32-5329-4fab-9ac5-6e9781f87077"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
 			</staticText>
+			<line>
+				<reportElement x="19" y="19" width="521" height="1" uuid="0be761a8-9447-47a9-bd5d-9fe4596a27a0"/>
+			</line>
 			<staticText>
-				<reportElement x="355" y="0" width="100" height="20" uuid="b70048ee-fe0b-4564-9c6d-da03f141a703"/>
-				<text><![CDATA[P.U.P]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="255" y="0" width="100" height="20" uuid="6017ea32-5329-4fab-9ac5-6e9781f87077"/>
-				<text><![CDATA[CANTIDAD]]></text>
+				<reportElement x="118" y="1" width="215" height="21" uuid="db37e8f4-58e6-41b3-917a-d3a1d3bb8fc3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="22" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="43" height="20" uuid="66037f76-47c6-482a-87d9-f627abe64519"/>
-				<textFieldExpression><![CDATA[$F{tbl_factura_producto_ID_PRODUCTO}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="43" y="0" width="212" height="21" uuid="b16da0ac-65ee-464b-b056-4b5cd4d41f76"/>
-				<textFieldExpression><![CDATA[$F{tbl_producto_PRO_DESCRIPCION}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="355" y="0" width="100" height="20" uuid="1925f858-8542-4d99-b7de-ad1fbb5e79b2"/>
+				<reportElement x="333" y="0" width="100" height="20" uuid="1925f858-8542-4d99-b7de-ad1fbb5e79b2"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{tbl_producto_PRO_PRECIO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="255" y="0" width="100" height="20" uuid="5a192bf6-078d-4183-933c-b3fd2bff268f"/>
+				<reportElement x="19" y="0" width="100" height="20" uuid="5a192bf6-078d-4183-933c-b3fd2bff268f"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{tbl_factura_producto_DET_CANTIDAD}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="1" width="100" height="20" uuid="458d2215-edf6-4cff-90fe-a49a720f1053"/>
+				<reportElement x="433" y="1" width="100" height="20" uuid="458d2215-edf6-4cff-90fe-a49a720f1053"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{tbl_factura_producto_DET_CANTIDAD}.floatValue()*$F{tbl_producto_PRO_PRECIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="119" y="1" width="214" height="20" uuid="b16da0ac-65ee-464b-b056-4b5cd4d41f76"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_producto_PRO_DESCRIPCION}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band/>
 	</detail>
 	<columnFooter>
-		<band height="63" splitType="Stretch">
+		<band height="112" splitType="Stretch">
 			<staticText>
-				<reportElement x="355" y="0" width="100" height="20" uuid="277c097b-1c9d-4d62-a97d-342f8e08c795"/>
+				<reportElement x="333" y="12" width="100" height="20" uuid="277c097b-1c9d-4d62-a97d-342f8e08c795"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
 				<text><![CDATA[Subtotal:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="355" y="20" width="100" height="20" uuid="ad9ba7bd-2a22-4250-829f-fded2d81b6da"/>
-				<text><![CDATA[IVA]]></text>
+				<reportElement x="333" y="32" width="100" height="20" uuid="ad9ba7bd-2a22-4250-829f-fded2d81b6da"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IVA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="355" y="40" width="100" height="20" uuid="ed7a35bc-e11f-4ec9-af1b-8e09baed59c2"/>
-				<text><![CDATA[Total]]></text>
+				<reportElement x="333" y="52" width="100" height="20" uuid="ed7a35bc-e11f-4ec9-af1b-8e09baed59c2"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="455" y="0" width="100" height="20" uuid="c4890e08-3419-4162-8ca2-340e84e5e2c4"/>
+				<reportElement x="455" y="12" width="85" height="20" uuid="c4890e08-3419-4162-8ca2-340e84e5e2c4"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{tbl_factura_FACT_SUB_TOTAL}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="20" width="100" height="20" uuid="1b219566-3463-4c10-a609-dde5b7a45cd0"/>
+				<reportElement x="455" y="32" width="85" height="20" uuid="1b219566-3463-4c10-a609-dde5b7a45cd0"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{tbl_factura_FACT_IVA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="40" width="100" height="20" uuid="e2ba896e-64e7-4373-a56e-d3d3709658aa"/>
+				<reportElement x="455" y="52" width="85" height="20" uuid="e2ba896e-64e7-4373-a56e-d3d3709658aa"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{tbl_factura_FACT_TOTAL}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="0" width="555" height="1" uuid="0b06e7fa-8752-466d-9755-26e6ffbf4e67"/>
+				<reportElement x="19" y="0" width="521" height="1" uuid="0b06e7fa-8752-466d-9755-26e6ffbf4e67"/>
 			</line>
 		</band>
 	</columnFooter>
@@ -228,6 +361,6 @@ WHERE
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>

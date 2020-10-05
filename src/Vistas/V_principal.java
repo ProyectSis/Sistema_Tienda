@@ -6,13 +6,13 @@
  */
 package Vistas;
 
-import java.awt.Dimension;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import modelos.RelojVisual;
 import sistema_tienda.Sistema_Tienda;
 
@@ -49,7 +49,7 @@ public class V_principal extends javax.swing.JFrame {
         }
         v_casa.show();
         lblTitulo.setText("Inicio");
-        if (V_principal.lblRol.getText() == "Vendedor") {
+        if ("Vendedor".equals(V_principal.lblRol.getText())) {
             mAuditoria.setEnabled(false);
             mUsuarios.setEnabled(false);
         }
@@ -114,19 +114,20 @@ public class V_principal extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        lblNombre.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        lblNombre.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel2.setText("Usuario: ");
 
-        jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel3.setText("Fecha:");
 
-        lblRol.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        lblRol.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
 
         lblFecha.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
 
         lblID.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        lblID.setForeground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -211,7 +212,6 @@ public class V_principal extends javax.swing.JFrame {
         Salir.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         Salir.setForeground(new java.awt.Color(255, 0, 0));
         Salir.setText("x");
-        Salir.setBorderPainted(false);
         Salir.setFocusable(false);
         Salir.setMargin(new java.awt.Insets(1, 14, 1, 14));
         Salir.addActionListener(new java.awt.event.ActionListener() {
@@ -394,6 +394,11 @@ public class V_principal extends javax.swing.JFrame {
 
         mAuditoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/business.png"))); // NOI18N
         mAuditoria.setText("Auditoria");
+        mAuditoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mAuditoriaMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(mAuditoria);
 
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/contact.png"))); // NOI18N
@@ -409,6 +414,11 @@ public class V_principal extends javax.swing.JFrame {
         jMenu6.setText("Ayuda");
 
         jMenu7.setText("Manual");
+        jMenu7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu7MouseClicked(evt);
+            }
+        });
         jMenu6.add(jMenu7);
 
         jMenu4.setText("Acerca de");
@@ -454,9 +464,9 @@ public class V_principal extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         if (V_principal.lblRol.getText() == "Vendedor") {
-            
+
             JOptionPane.showMessageDialog(null, "Solo el/los administrador/s tiene acceso");
-        }else{
+        } else {
             V_gestionar_vendedor gest_vendedor = new V_gestionar_vendedor();
             if (JInternalFrames_Abiertos(gest_vendedor)) {
 
@@ -550,7 +560,7 @@ public class V_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        dispose();
+        System.exit(0);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
@@ -713,30 +723,42 @@ public class V_principal extends javax.swing.JFrame {
         vsd.setVisible(true);
     }//GEN-LAST:event_jMenu4MouseClicked
 
+    private void mAuditoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mAuditoriaMouseClicked
+        V_auditoria a = new V_auditoria();
+
+        if (JInternalFrames_Abiertos(a)) {
+
+        } else {
+            PanelEscritorio.add(a);
+            try {
+                a.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(V_principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            lblTitulo.setText(a.getTitle());
+            a.show();
+        }
+    }//GEN-LAST:event_mAuditoriaMouseClicked
+
+    private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
+        try {
+            Process p = Runtime.getRuntime().exec("rundll32 SHELL32.DLL,ShellExec_RunDLL " + "C:\\Users\\Admin\\Documents\\NetBeansProjects\\Sistema_Tienda\\Sistema_Tienda\\src\\Facturas\\Manual.pdf");
+        } catch (Exception evvv) {
+            JOptionPane.showMessageDialog(null, "No se puede abrir el archivo de ayuda, probablemente fue borrado", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }//GEN-LAST:event_jMenu7MouseClicked
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(V_principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        //</editor-fold>
-
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new V_principal().setVisible(true);
         });

@@ -6,6 +6,13 @@
 package Vistas;
 
 import Controlador.marca_crud;
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import modelos.conexion;
 
 /**
  *
@@ -16,10 +23,13 @@ public class V_gestionar_marca extends javax.swing.JInternalFrame {
     /**
      * Creates new form NewJInternalFrame
      */
-        marca_crud mar_crud = new marca_crud();
+    marca_crud mar_crud = new marca_crud();
+    conexion conexion = new conexion();
+    Connection cc = conexion.conectado();
+
     public V_gestionar_marca() {
-        ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
-        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)); 
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         initComponents();
         mar_crud.mostrarDatosConTableModel(tbl_marcas);
         if (V_principal.lblRol.getText() == "Vendedor") {
@@ -53,6 +63,7 @@ public class V_gestionar_marca extends javax.swing.JInternalFrame {
         btnBorrar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
+        btnActualizar1 = new javax.swing.JButton();
 
         setTitle("Gestionar marca");
 
@@ -204,12 +215,21 @@ public class V_gestionar_marca extends javax.swing.JInternalFrame {
             }
         });
 
+        btnActualizar1.setBackground(new java.awt.Color(204, 255, 255));
+        btnActualizar1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnActualizar1.setText("Nuevo");
+        btnActualizar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -217,12 +237,14 @@ public class V_gestionar_marca extends javax.swing.JInternalFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnActualizar1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,7 +257,8 @@ public class V_gestionar_marca extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizar1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
 
@@ -266,28 +289,96 @@ public class V_gestionar_marca extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        // TODO add your handling code here:
+        if (!"".equals(txt_codigo.getText())) {
+            int id = Integer.parseInt(txt_codigo.getText());
+
+            int reply = JOptionPane.showConfirmDialog(null, "¿Esta seguro que quiere borrar el registro?", "Atencion", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                try {
+                    String sql = "DELETE marca FROM tbl_marca as marca INNER JOIN tbl_producto as p ON marca.id_marca = p.id_marca WHERE marca.id_marca =" + id;
+                    Statement st = cc.createStatement();
+                    int resultado = st.executeUpdate(sql);
+                    if (resultado > 0) {
+                        
+                    } else {
+                    }
+                    
+                } catch (SQLException | HeadlessException e) {
+                    JOptionPane.showMessageDialog(this, "Error " + e);
+                }
+                try {
+                    String sql2 = "DELETE marca FROM tbl_marca as marca WHERE marca.id_marca = " + id;
+                    Statement st2 = cc.createStatement();
+                    int resultado2 = st2.executeUpdate(sql2);
+                    if (resultado2 > 0) {
+                        JOptionPane.showMessageDialog(this, "Se ha borrado el registro");
+                        
+                        mar_crud.mostrarDatosConTableModel(tbl_marcas);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "NO se pudo borrar el registro");
+                    }
+                    
+                } catch (SQLException | HeadlessException e) {
+                    JOptionPane.showMessageDialog(this, "Error " + e);
+                }
+            }
+
+        }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        txt_codigo.setEditable(true);
-        txtDescripcion.setEditable(true);
+
+        int fila = tbl_marcas.getSelectedRow();
+        try {
+
+            int id = Integer.parseInt(txt_codigo.getText());
+            String sql = "UPDATE tbl_marca as mar \n"
+                    + "LEFT JOIN tbl_producto as p ON mar.id_marca = p.ID_MARCA\n"
+                    + "SET mar_descripcion = ?\n"
+                    + "WHERE mar.id_marca =" + id;
+            PreparedStatement ps = cc.prepareStatement(sql);
+            ps.setString(1, txtDescripcion.getText());
+
+            int resultado = ps.executeUpdate();
+
+            if (resultado > 0) {
+                JOptionPane.showMessageDialog(this, "Se ha actualizado el registro");
+                mar_crud.mostrarDatosConTableModel(tbl_marcas);
+                txt_codigo.setEditable(false);
+                txtDescripcion.setEditable(false);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "NO se pudo actualizar el registro");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error " + e);
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
+
+        mar_crud.mostrarDatosConTableModel(tbl_marcas);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void tbl_marcasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_marcasMouseClicked
+        txt_codigo.setEditable(true);
+        txtDescripcion.setEditable(true);
         String id = (String) tbl_marcas.getValueAt(tbl_marcas.getSelectedRow(), 0);
         String descripcion = (String) tbl_marcas.getValueAt(tbl_marcas.getSelectedRow(), 1);
         txt_codigo.setText(id);
         txtDescripcion.setText(descripcion);
     }//GEN-LAST:event_tbl_marcasMouseClicked
 
+    private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar1ActionPerformed
+        V_N_marca nm = new V_N_marca();
+        nm.setVisible(true);
+    }//GEN-LAST:event_btnActualizar1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnActualizar1;
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnModificar;

@@ -38,7 +38,6 @@ public class Sistema_Tienda extends Observable{
              public void update (Observable unObservable, Object dato)
              {
                  
-                 System.out.println (dato);
              }
          });
         V_login v_login = new V_login();

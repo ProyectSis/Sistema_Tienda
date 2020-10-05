@@ -1,5 +1,6 @@
 package modelos;
 
+import java.io.File;
 import java.util.Properties;
 import javax.activation.*;
 import javax.mail.*;
@@ -11,7 +12,7 @@ import javax.swing.JOptionPane;
 
 public class EnviarFactura {
 
-    public void enviarFactura(String CorreoCliente,String idFactura) {
+    public void enviarFactura(String CorreoCliente, String idFactura) {
         final String username = "richardjreese501@gmail.com";
         final String password = "0989960567luis";
 
@@ -43,8 +44,8 @@ public class EnviarFactura {
             Multipart multipart = new MimeMultipart();
 
             messageBodyPart = new MimeBodyPart();
-            String file = "C:/temporal/factura"+idFactura+".pdf";
-            String fileName = "factura"+idFactura+".pdf";
+            String file = "C:\\Users\\Admin\\Documents\\NetBeansProjects\\Sistema_Tienda\\Sistema_Tienda\\src\\Facturas\\factura" + idFactura + ".pdf";
+            String fileName = "factura" + idFactura + ".pdf";
             DataSource source = new FileDataSource(file);
             messageBodyPart.setDataHandler(new DataHandler(source));
             messageBodyPart.setFileName(fileName);
@@ -55,11 +56,16 @@ public class EnviarFactura {
             System.out.println("Sending");
 
             Transport.send(message);
-
-            JOptionPane.showMessageDialog(null,"Done");
+            File fichero = new File(file);
+            JOptionPane.showMessageDialog(null, "Factura enviada");
+            if (fichero.delete()) {
+                System.out.println("El fichero ha sido borrado satisfactoriamente");
+            } else {
+                System.out.println("El fichero no puede ser borrado");
+            }
 
         } catch (MessagingException e) {
-            System.err.println("Error al enviar factura "+e);
+            System.err.println("Error al enviar factura " + e);
         }
     }
 }

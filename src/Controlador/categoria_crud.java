@@ -57,6 +57,8 @@ public class categoria_crud {
     }
 
     public void mostrarDatosConTableModel(JTable jTable1) {
+        tabla.setColumnCount(0);
+        tabla.setRowCount(0);
         tabla.addColumn("ID");
         tabla.addColumn("Descripcion");
         jTable1.setModel(tabla);
@@ -96,6 +98,27 @@ public class categoria_crud {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al cargar los Datos\n" + ex);
+        }
+    }
+    
+    public void nuevaCategoria(String descripcion){
+    
+    String query = "INSERT INTO tbl_categoria (ID_CATEGORIA,CAT_DESCRIPCION) values (null,?)";
+        
+        try {
+            preparedStatement = cc.prepareStatement(query);
+
+            preparedStatement.setString(1, descripcion);
+
+            // execute insert SQL stetement
+            preparedStatement.executeUpdate();
+
+            JOptionPane.showMessageDialog(null,"Se añadio correctamente el registro");
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+
         }
     }
 }

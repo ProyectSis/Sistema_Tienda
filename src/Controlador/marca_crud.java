@@ -1,10 +1,15 @@
 package Controlador;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -58,6 +63,8 @@ public class marca_crud {
     }
 
     public void mostrarDatosConTableModel( JTable jTable1 ) {
+        tabla.setColumnCount(0);
+        tabla.setRowCount(0);
         tabla.addColumn("ID");
         tabla.addColumn("Descripcion");
         jTable1.setModel(tabla);
@@ -96,6 +103,27 @@ public class marca_crud {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al cargar los Datos\n" + ex);
+        }
+    }
+    
+    public void nuevaMarca(String descripcion){
+    
+    String query = "INSERT INTO tbl_marca (id_marca,mar_descripcion) values (null,?)";
+        
+        try {
+            preparedStatement = cc.prepareStatement(query);
+
+            preparedStatement.setString(1, descripcion);
+
+            // execute insert SQL stetement
+            preparedStatement.executeUpdate();
+
+            JOptionPane.showMessageDialog(null,"Se añadio correctamente el registro");
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+
         }
     }
 }

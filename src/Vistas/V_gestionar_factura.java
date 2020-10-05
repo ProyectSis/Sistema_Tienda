@@ -1,10 +1,13 @@
 package Vistas;
-
+import modelos.ButtonColumn;
 import Controlador.cliente_crud;
 import Controlador.factura_crud;
 import Controlador.producto_crud;
 import modelos.EnviarFactura;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -12,9 +15,13 @@ import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractAction;
 import javax.swing.AbstractButton;
+import javax.swing.Action;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 import modelos.conexion;
@@ -46,11 +53,8 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
         pc.mostraarProductoporNombre("", tblPorNomrbe);
         pc.mostrarProductoporImagen("", PanelImagen, lblnombre, lblID, txtprecio, lblstock);
         Random numAleatorio = new Random();
-// Constructor pasadole una semilla
         txtNFactura.setText(fc.getIdFactura() + 1 + "");
 
-// Numero entero entre 25 y 75
-        int n = numAleatorio.nextInt(9999 - 1000 + 1) + 25;
         tabla.setColumnCount(0);
         tabla.setRowCount(0);
         tabla.addColumn("ID");
@@ -66,6 +70,7 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         btngrup = new javax.swing.ButtonGroup();
+        btngrup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         btnBorrar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -129,6 +134,10 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         btnAgregar4 = new javax.swing.JButton();
+        btnBorrarProducto = new javax.swing.JButton();
+        lblDetalleProducto = new javax.swing.JLabel();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
 
         setTitle("Nueva compra");
 
@@ -216,7 +225,7 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
         });
 
         cboxBuscar.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        cboxBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CI", "Nombre", " " }));
+        cboxBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CI", "Nombre" }));
 
         txtMach.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         txtMach.setText(" ");
@@ -404,6 +413,7 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel10.setText("Precio:");
 
+        txtprecio.setEditable(false);
         txtprecio.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
 
         lblnombre.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
@@ -497,21 +507,29 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Factura", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 0, 24))); // NOI18N
 
         tblFactura.setModel(tabla);
+        tblFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblFacturaMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblFactura);
 
         jLabel11.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel11.setText("Subtotal:");
 
+        txtSubtotal.setEditable(false);
         txtSubtotal.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel12.setText("IVA:");
 
+        txtIva.setEditable(false);
         txtIva.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel13.setText("Total:");
 
+        txtTotal.setEditable(false);
         txtTotal.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
 
         jLabel14.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
@@ -583,6 +601,18 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
             }
         });
 
+        btnBorrarProducto.setBackground(new java.awt.Color(255, 51, 51));
+        btnBorrarProducto.setText("Borrar");
+        btnBorrarProducto.setToolTipText("Cambiar Cliente");
+        btnBorrarProducto.setEnabled(false);
+        btnBorrarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarProductoActionPerformed(evt);
+            }
+        });
+
+        lblDetalleProducto.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -630,14 +660,21 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(btnAgregar3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAgregar4, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAgregar4, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(lblDetalleProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBorrarProducto)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnBorrarProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblDetalleProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -676,6 +713,27 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jRadioButton3.setBackground(new java.awt.Color(255, 255, 255));
+        btngrup2.add(jRadioButton3);
+        jRadioButton3.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jRadioButton3.setSelected(true);
+        jRadioButton3.setText("Factura con datos");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton4.setBackground(new java.awt.Color(255, 255, 255));
+        btngrup2.add(jRadioButton4);
+        jRadioButton4.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jRadioButton4.setText("Consumidor final");
+        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -686,7 +744,12 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jRadioButton3)
+                                .addGap(39, 39, 39)
+                                .addComponent(jRadioButton4)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -699,14 +762,18 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton4)
+                            .addComponent(jRadioButton3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -724,7 +791,8 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-
+        borrarCliente();
+        borrarTabla();
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void txtcodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcodigoActionPerformed
@@ -732,12 +800,21 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtcodigoActionPerformed
 
     private void btnAgregar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar2ActionPerformed
-        if (Integer.parseInt(txtCantidad.getText()) > Integer.parseInt(lblstock.getText())) {
+        float res = Integer.parseInt(txtCantidad.getText()) * Float.parseFloat(txtprecio.getText());
+        boolean estado = true;
+        if (Integer.parseInt(txtCantidad.getText()) > Integer.parseInt(lblstock.getText()) && Integer.parseInt(txtCantidad.getText())>0) {
             JOptionPane.showMessageDialog(null, "No hay suficientes existencias de este producto");
-        } else {
-            float res = Integer.parseInt(txtCantidad.getText()) * Float.parseFloat(txtprecio.getText());
+        } else if (tblFactura.getRowCount() > 0) {
+            for (int i = 0; i < tblFactura.getRowCount(); i++) {
+                if (tblFactura.getValueAt(i, 0).equals(lblID.getText())) {
+                    JOptionPane.showMessageDialog(null, "El producto ya esta en la lista");
+                    estado = false;
+                }
+            }
 
-            Object datos[] = new Object[5];
+        }
+        if (estado) {
+            Object datos[] = new Object[6];
             datos[0] = lblID.getText();
             datos[1] = lblnombre.getText();
             datos[2] = txtCantidad.getText();
@@ -753,7 +830,47 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtCedulaActionPerformed
 
     private void btnAgregar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar3ActionPerformed
-        guardarPDF();
+        factura_crud fc = new factura_crud();
+        if (tblFactura.getRowCount()>0) {
+            if (txtCorreo.getText().length()>5) {
+                int formaPago = 1;
+                if (cboxFormaPago.getSelectedItem() == "Efectivo") {
+                    formaPago = 1;
+                } else if (cboxFormaPago.getSelectedItem() == "Tajeta de Credito") {
+                    formaPago = 2;
+                } else if (cboxFormaPago.getSelectedItem() == "Tajeta de Debito") {
+                    formaPago = 3;
+                }
+                if (getSelectedButtonText(btngrup2) == "Factura con datos") {
+                    fc.insertarFactura(formaPago, txtcodigo.getText(),
+                            Float.parseFloat(txtSubtotal.getText()), Float.parseFloat(txtIva.getText()),
+                            Float.parseFloat(txtTotal.getText()), getSelectedButtonText(btngrup));
+                } else {
+                    fc.insertarFactura(formaPago, "null",
+                            Float.parseFloat(txtSubtotal.getText()), Float.parseFloat(txtIva.getText()),
+                            Float.parseFloat(txtTotal.getText()), getSelectedButtonText(btngrup));
+                }
+                System.out.println("filas " + tblFactura.getRowCount());
+                for (int i = 0; i < tblFactura.getRowCount(); i++) {
+                    
+                    fc.InsertarDetalle(Integer.parseInt(tblFactura.getValueAt(i, 0) + ""), Integer.parseInt(tblFactura.getValueAt(i, 2) + ""));
+                    System.out.println("id de producto" + tblFactura.getValueAt(i, 0));
+                    fc.actualizarCantidad(tblFactura.getValueAt(i, 0) + "", Integer.parseInt(tblFactura.getValueAt(i, 2) + ""));
+                }
+                guardarPDF();
+                enviarfactura();
+                borrarCliente();
+                borrarTabla();
+                int nfactura = Integer.parseInt(txtNFactura.getText()) + 1;
+                
+                txtNFactura.setText(nfactura + "");
+            } else {
+            JOptionPane.showMessageDialog(null, "El cliente no tiene asociado ningun correo");
+                
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay productos que facturar");
+        }
     }//GEN-LAST:event_btnAgregar3ActionPerformed
 
     private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
@@ -820,6 +937,7 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
     private void btnCambiarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarClienteActionPerformed
         txtBuscarcliente.setEnabled(true);
         cboxBuscar.setEnabled(true);
+        borrarCliente();
     }//GEN-LAST:event_btnCambiarClienteActionPerformed
 
     private void tblPorNomrbeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPorNomrbeMouseClicked
@@ -834,7 +952,7 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblPorNomrbeMouseClicked
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
-        if (txtCantidad.getText().length() > 0) {
+        if (!"".equals(txtCantidad.getText()) && Integer.parseInt(txtCantidad.getText()) + 0 != 0) {
             btnAgregar2.setEnabled(true);
         }
     }//GEN-LAST:event_txtCantidadKeyTyped
@@ -865,53 +983,68 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtdescuentoKeyTyped
 
     private void btnAgregar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar4ActionPerformed
+        
         factura_crud fc = new factura_crud();
-        int formaPago = 1;
-        if (cboxFormaPago.getSelectedItem() == "Efectivo") {
-            formaPago = 1;
-        } else if (cboxFormaPago.getSelectedItem() == "Tajeta de Credito") {
-            formaPago = 2;
-        } else if (cboxFormaPago.getSelectedItem() == "Tajeta de Debito") {
-            formaPago = 3;
+        if (tblFactura.getRowCount()>0) {
+            int formaPago = 1;
+            if (cboxFormaPago.getSelectedItem() == "Efectivo") {
+                formaPago = 1;
+            } else if (cboxFormaPago.getSelectedItem() == "Tajeta de Credito") {
+                formaPago = 2;
+            } else if (cboxFormaPago.getSelectedItem() == "Tajeta de Debito") {
+                formaPago = 3;
+            }
+            if (getSelectedButtonText(btngrup2) == "Factura con datos") {
+                fc.insertarFactura(formaPago, txtcodigo.getText(),
+                        Float.parseFloat(txtSubtotal.getText()), Float.parseFloat(txtIva.getText()),
+                        Float.parseFloat(txtTotal.getText()), getSelectedButtonText(btngrup));
+            } else {
+                fc.insertarFactura(formaPago, "null",
+                        Float.parseFloat(txtSubtotal.getText()), Float.parseFloat(txtIva.getText()),
+                        Float.parseFloat(txtTotal.getText()), getSelectedButtonText(btngrup));
+            }
+            for (int i = 0; i < tblFactura.getRowCount(); i++) {
+                
+                fc.InsertarDetalle(Integer.parseInt(tblFactura.getValueAt(i, 0) + ""), Integer.parseInt(tblFactura.getValueAt(i, 2) + ""));
+                fc.actualizarCantidad(tblFactura.getValueAt(i, 0) + "", Integer.parseInt(tblFactura.getValueAt(i, 2) + ""));
+            }
+            guardarPDF();
+            borrarCliente();
+            borrarTabla();
+            int nfactura = Integer.parseInt(txtNFactura.getText()) + 1;
+            
+            txtNFactura.setText(nfactura + "");
+        } else {
+            JOptionPane.showMessageDialog(null, "No ha ingresado ningun producto");
         }
-        fc.insertarFactura(formaPago, Integer.parseInt(txtcodigo.getText()),
-                Float.parseFloat(txtSubtotal.getText()), Float.parseFloat(txtIva.getText()),
-                Float.parseFloat(txtTotal.getText()), getSelectedButtonText(btngrup));
-        System.out.println("filas " + tblFactura.getRowCount());
-        for (int i = 0; i < tblFactura.getRowCount(); i++) {
 
-            fc.InsertarDetalle(Integer.parseInt(tblFactura.getValueAt(i, 0) + ""), Integer.parseInt(tblFactura.getValueAt(i, 2) + ""));
-            System.out.println("id de producto" + tblFactura.getValueAt(i, 0));
-            fc.actualizarCantidad(tblFactura.getValueAt(i, 0) + "");
-        }
-        guardarPDF();
-        enviarfactura();
-        /*
-        try {
-            conexion con = new conexion();
-            Connection conn = con.conectado();
-
-            JasperReport reporte = null;
-            String path = "src\\reportes\\DetalleFactura.jasper";
-
-            Map parametro = new HashMap();
-            parametro.put("id_factura", txtNFactura.getText());
-
-            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
-
-            JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, conn);
-
-            JasperViewer view = new JasperViewer(jprint, false);
-
-            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-            view.setVisible(true);
-
-        } catch (JRException ex) {
-            Logger.getLogger(V_reporte_facturas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         */
     }//GEN-LAST:event_btnAgregar4ActionPerformed
+
+    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+        txtBuscarcliente.setEnabled(false);
+        cboxBuscar.setEnabled(false);
+        borrarCliente();
+    }//GEN-LAST:event_jRadioButton4ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        txtBuscarcliente.setEnabled(true);
+        cboxBuscar.setEnabled(true);
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void btnBorrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarProductoActionPerformed
+        DefaultTableModel m = (DefaultTableModel) tblFactura.getModel();
+        m.removeRow(tblFactura.getSelectedRow());
+        btnBorrarProducto.setEnabled(true);
+        lblDetalleProducto.setText("");
+
+    }//GEN-LAST:event_btnBorrarProductoActionPerformed
+
+    private void tblFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFacturaMouseClicked
+        
+        btnBorrarProducto.setEnabled(true);
+        lblDetalleProducto.setText(tblFactura.getValueAt(tblFactura.getSelectedRow(), 1)+"");
+        
+    }//GEN-LAST:event_tblFacturaMouseClicked
     public void busqueda() {
         PanelImagen.removeAll();
         PanelImagen.repaint();
@@ -951,28 +1084,87 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
     }
 
     public void guardarPDF() {
-        JasperReport reporte = null;
-        conexion con = new conexion();
-        Connection conn = con.conectado();
-
-        Map parametro = new HashMap();
-        parametro.put("id_factura", txtNFactura.getText());
         try {
-            //se carga el reporte
-            String url = "src\\reportes\\DetalleFactura.jasper";
-            reporte = (JasperReport) JRLoader.loadObjectFromFile(url);
-            //se procesa el archivo jasper
-            JasperPrint jp = JasperFillManager.fillReport(reporte, parametro, conn);
-            //se crea el archivo PDF
-            JasperExportManager.exportReportToPdfFile(jp, "C:\\temporal\\factura" + txtNFactura.getText() + ".pdf");
-        } catch (JRException ex) {
-            System.err.println("Error iReport: " + ex.getMessage());
-        }
+                conexion con = new conexion();
+                Connection conn = con.conectado();
+
+                JasperReport reporte = null;
+                String path = "src\\reportes\\DetalleFactura.jasper";
+
+                Map parametro = new HashMap();
+                parametro.put("id_factura", txtNFactura.getText());
+
+                reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+
+                JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, conn);
+
+                JasperViewer view = new JasperViewer(jprint, false);
+
+                view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+                view.setVisible(true);
+
+            } catch (JRException ex) {
+                Logger.getLogger(V_reporte_facturas.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
     }
-    public void enviarfactura(){
-        EnviarFactura ef   = new EnviarFactura();
+
+    public void enviarfactura() {
+        EnviarFactura ef = new EnviarFactura();
         ef.enviarFactura(txtCorreo.getText(), txtNFactura.getText());
+    }
+
+    public void imprimirFactura() {
+        try {
+            conexion con = new conexion();
+            Connection conn = con.conectado();
+
+            JasperReport reporte = null;
+            String path = "src\\reportes\\DetalleFactura.jasper";
+
+            Map parametro = new HashMap();
+            parametro.put("id_factura", txtNFactura.getText());
+
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, conn);
+
+            JasperViewer view = new JasperViewer(jprint, false);
+
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+            view.setVisible(true);
+
+        } catch (JRException ex) {
+            Logger.getLogger(V_reporte_facturas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   
+    }
+    public void borrarCliente(){
+        txtcodigo.setText("");
+        txtCliente.setText("");
+        txtCedula.setText("");
+        txtCorreo.setText("");
+        txtDireccion.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+    }
+    public void borrarTabla(){
+        tabla.setColumnCount(0);
+        tabla.setRowCount(0);
+        txtSubtotal.setText("");
+        txtTotal.setText("");
+        txtIva.setText("");
+        txtdescuento.setText("");
+        tabla.setColumnCount(0);
+        tabla.setRowCount(0);
+        tabla.addColumn("ID");
+        tabla.addColumn("Descripcion");
+        tabla.addColumn("Cantidad");
+        tabla.addColumn("P.U.");
+        tabla.addColumn("Precio");
+        tblFactura.setModel(tabla);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelImagen;
@@ -980,9 +1172,11 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAgregar3;
     private javax.swing.JButton btnAgregar4;
     private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnBorrarProducto;
     private javax.swing.JButton btnBuscarPro;
     private javax.swing.JButton btnCambiarCliente;
     private javax.swing.ButtonGroup btngrup;
+    private javax.swing.ButtonGroup btngrup2;
     private javax.swing.JComboBox<String> cboxBuscar;
     private javax.swing.JComboBox<String> cboxFormaPago;
     private javax.swing.JCheckBox jCheckBox1;
@@ -1010,12 +1204,15 @@ public class V_gestionar_factura extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel l3;
     private javax.swing.JLabel l4;
+    private javax.swing.JLabel lblDetalleProducto;
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblnombre;
     private javax.swing.JLabel lblstock;

@@ -6,6 +6,13 @@
 package Vistas;
 
 import Controlador.categoria_crud;
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import modelos.conexion;
 
 /**
  *
@@ -13,13 +20,17 @@ import Controlador.categoria_crud;
  */
 public class V_gestionar_categoria extends javax.swing.JInternalFrame {
 
-        categoria_crud cat_crud = new categoria_crud();
+    categoria_crud cat_crud = new categoria_crud();
+
+    conexion conexion = new conexion();
+    Connection cc = conexion.conectado();
+
     /**
      * Creates new form test5
      */
     public V_gestionar_categoria() {
-        ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
-        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0)); 
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         initComponents();
         cat_crud.mostrarDatosConTableModel(tbl_categorias);
         if (V_principal.lblRol.getText() == "Vendedor") {
@@ -53,6 +64,7 @@ public class V_gestionar_categoria extends javax.swing.JInternalFrame {
         btnBorrar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
+        btnActualizar1 = new javax.swing.JButton();
 
         setTitle("Gestionar categorias");
 
@@ -61,6 +73,7 @@ public class V_gestionar_categoria extends javax.swing.JInternalFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
+        txt_codigo.setEditable(false);
         txt_codigo.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         txt_codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +89,7 @@ public class V_gestionar_categoria extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel2.setText("Codigo:");
 
+        txtDescripcion.setEditable(false);
         txtDescripcion.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jScrollPane2.setViewportView(txtDescripcion);
 
@@ -123,6 +137,11 @@ public class V_gestionar_categoria extends javax.swing.JInternalFrame {
 
             }
         ));
+        tbl_categorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_categoriasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_categorias);
 
         txtBusqueda.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
@@ -197,12 +216,21 @@ public class V_gestionar_categoria extends javax.swing.JInternalFrame {
             }
         });
 
+        btnActualizar1.setBackground(new java.awt.Color(204, 255, 255));
+        btnActualizar1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        btnActualizar1.setText("Nuevo");
+        btnActualizar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -210,12 +238,14 @@ public class V_gestionar_categoria extends javax.swing.JInternalFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnActualizar1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,8 +258,9 @@ public class V_gestionar_categoria extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizar1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -255,24 +286,99 @@ public class V_gestionar_categoria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        // TODO add your handling code here:
+        if (!"".equals(txt_codigo.getText())) {
+            int id = Integer.parseInt(txt_codigo.getText());
+            int reply = JOptionPane.showConfirmDialog(null, "¿Esta seguro que quiere borrar el registro?", "Atencion", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                try {
+                    String sql = "DELETE cat FROM tbl_categoria as cat INNER JOIN tbl_producto as p ON  cat.ID_CATEGORIA = p.ID_CATEGORIA WHERE cat.ID_CATEGORIA =" + id;
+                    Statement st = cc.createStatement();
+                    int resultado = st.executeUpdate(sql);
+                    if (resultado > 0) {
+
+                    } else {
+                    }
+
+                } catch (SQLException | HeadlessException e) {
+                    JOptionPane.showMessageDialog(this, "Error " + e);
+                }
+                try {
+                    String sql2 = "DELETE cat FROM tbl_categoria as cat WHERE cat.ID_CATEGORIA = " + id;
+                    Statement st2 = cc.createStatement();
+                    int resultado2 = st2.executeUpdate(sql2);
+                    if (resultado2 > 0) {
+                        JOptionPane.showMessageDialog(this, "Se ha borrado el registro");
+
+                        cat_crud.buscarCategoria(tbl_categorias, txtBusqueda.getText());
+                    } else {
+                        JOptionPane.showMessageDialog(this, "NO se pudo borrar el registro");
+                    }
+
+                } catch (SQLException | HeadlessException e) {
+                    JOptionPane.showMessageDialog(this, "Error " + e);
+                }
+
+            }
+        }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 
+        int fila = tbl_categorias.getSelectedRow();
+        try {
+
+            int id = Integer.parseInt(txt_codigo.getText());
+            String sql = "UPDATE tbl_categoria as cat \n"
+                    + "LEFT JOIN tbl_producto as p ON cat.ID_CATEGORIA = p.ID_CATEGORIA\n"
+                    + "SET CAT_DESCRIPCION = ?\n"
+                    + "WHERE cat.ID_CATEGORIA = " + id;
+            PreparedStatement ps = cc.prepareStatement(sql);
+            ps.setString(1, txtDescripcion.getText());
+
+            int resultado = ps.executeUpdate();
+
+            if (resultado > 0) {
+                cat_crud.buscarCategoria(tbl_categorias, txtBusqueda.getText());
+
+                JOptionPane.showMessageDialog(this, "Se ha actualizado el registro");
+                txt_codigo.setEditable(false);
+                txtDescripcion.setEditable(false);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "NO se pudo actualizar el registro");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error " + e);
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
+        cat_crud.mostrarDatosConTableModel(tbl_categorias);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
-         cat_crud.buscarCategoria(tbl_categorias, txtBusqueda.getText());
+        cat_crud.buscarCategoria(tbl_categorias, txtBusqueda.getText());
     }//GEN-LAST:event_txtBusquedaActionPerformed
+
+    private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar1ActionPerformed
+        V_N_categoria nc = new V_N_categoria();
+        nc.setVisible(true);
+    }//GEN-LAST:event_btnActualizar1ActionPerformed
+
+    private void tbl_categoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_categoriasMouseClicked
+        txt_codigo.setEditable(true);
+        txtDescripcion.setEditable(true);
+        String id = (String) tbl_categorias.getValueAt(tbl_categorias.getSelectedRow(), 0);
+        String descripcion = (String) tbl_categorias.getValueAt(tbl_categorias.getSelectedRow(), 1);
+        txt_codigo.setText(id);
+        txtDescripcion.setText(descripcion);
+    }//GEN-LAST:event_tbl_categoriasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnActualizar1;
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnModificar;

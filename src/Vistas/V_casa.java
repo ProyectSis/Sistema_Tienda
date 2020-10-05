@@ -3,6 +3,7 @@ package Vistas;
 
 import static Vistas.V_principal.JInternalFrames_Abiertos;
 import static Vistas.V_principal.PanelEscritorio;
+import static Vistas.V_principal.lblNombre;
 import static Vistas.V_principal.lblTitulo;
 import java.beans.PropertyVetoException;
 import javax.swing.JOptionPane;
@@ -318,6 +319,8 @@ public class V_casa extends javax.swing.JInternalFrame {
             } catch (PropertyVetoException ex) {
             }
             V_principal.lblTitulo.setText(ges_factura.getTitle());
+            
+            ges_factura.txtVendedor.setText(lblNombre.getText());
             ges_factura.show();
         }
     }//GEN-LAST:event_jButton5ActionPerformed

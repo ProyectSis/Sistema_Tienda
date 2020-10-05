@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
  * de fecha.
  */
 public class RelojVisual extends JLabel {
+    SimpleDateFormat format = new SimpleDateFormat("aaaa.MM.dd HH: mm: ss");
 
     /**
      * Se pasa un observable de fecha/hora. El Observable debe pasar un Date a
@@ -55,5 +56,4 @@ public class RelojVisual extends JLabel {
     /**
      * Clase para mostrar una fecha/hora en formato texto.
      */
-    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 }

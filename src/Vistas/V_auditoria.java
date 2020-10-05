@@ -5,17 +5,80 @@
  */
 package Vistas;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import modelos.conexion;
+
 /**
  *
  * @author Admin
  */
 public class V_auditoria extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form V_auditoria
-     */
+    DefaultTableModel tabla = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int Fila, int Colum) {
+            return false;
+        }
+    };
+    conexion conexion = new conexion();
+    Connection cc = conexion.conectado();
+    PreparedStatement preparedStatement = null;
+    Statement st = null;
+
     public V_auditoria() {
+        ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         initComponents();
+        mostrarActividad();
+    }
+
+    public void mostrarActividad() {
+        tabla.setColumnCount(0);
+        tabla.setRowCount(0);
+        tabla.addColumn("ID");
+        tabla.addColumn("Descripcion");
+        tabla.addColumn("Fecha");
+        tabla.addColumn("Importancia");
+        tblActividad.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 13));
+        tblActividad.getTableHeader().setOpaque(false);
+        tblActividad.getTableHeader().setBackground(new Color(32, 136, 203));
+        tblActividad.getTableHeader().setForeground(new Color(255, 255, 255));
+        tblActividad.setRowHeight(25);
+        
+        TableColumnModel columnModel = tblActividad.getColumnModel();
+        tblActividad.setModel(tabla);
+
+        columnModel.getColumn(0).setPreferredWidth(10);
+        columnModel.getColumn(1).setPreferredWidth(250);
+        columnModel.getColumn(2).setPreferredWidth(25);
+        columnModel.getColumn(3).setPreferredWidth(25);
+
+        String datos[] = new String[4];    //Variable que almacena los datos de la consulta
+        String sql = "select * from tbl_auditoria";  //Consulta sql
+        try {
+            preparedStatement = cc.prepareStatement(sql);
+            ResultSet resultado = preparedStatement.executeQuery();  //Linea que ejecuta la consulta sql y almacena los datos en resultado
+
+            while (resultado.next()) {                                    //Bucle que recorre la consulta obtenida
+                datos[0] = resultado.getString("ID_AUDITORIA");
+                datos[1] = resultado.getString("AUD_DESCRIPCION");
+                datos[2] = resultado.getString("AUD_FECHA");
+                datos[3] = resultado.getString("AUD_IMPORTANCIA");
+                tabla.addRow(datos);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los Datos\n" + ex);
+        }
     }
 
     /**
@@ -31,6 +94,8 @@ public class V_auditoria extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblActividad = new javax.swing.JTable();
+
+        setTitle("Registro de actividad");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

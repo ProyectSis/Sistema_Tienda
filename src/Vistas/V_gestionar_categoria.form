@@ -43,7 +43,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jPanel3" max="32767" attributes="0"/>
@@ -52,6 +52,8 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="btnActualizar1" min="-2" pref="154" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnActualizar" min="-2" pref="154" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnBorrar" min="-2" pref="154" max="-2" attributes="0"/>
@@ -59,7 +61,7 @@
                           <Component id="btnModificar" min="-2" pref="154" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -76,8 +78,9 @@
                       <Component id="btnModificar" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="btnBorrar" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="btnActualizar" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="btnActualizar1" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <EmptySpace pref="24" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -136,6 +139,7 @@
           <SubComponents>
             <Component class="javax.swing.JTextField" name="txt_codigo">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Verdana" size="18" style="0"/>
                 </Property>
@@ -175,6 +179,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTextPane" name="txtDescripcion">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Verdana" size="18" style="0"/>
                     </Property>
@@ -248,6 +253,9 @@
                       <Table columnCount="0" rowCount="4"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_categoriasMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -317,6 +325,20 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnActualizar1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="cc" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Trebuchet MS" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Nuevo"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizar1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
